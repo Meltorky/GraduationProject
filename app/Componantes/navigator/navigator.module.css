@@ -1,0 +1,109 @@
+/* styles/Navigation.module.css */
+
+.navigation {
+  width: 100%;
+  background-color: white;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 90px;
+  font-size: 14px;
+}
+
+.topBarLeft, .topBarRight {
+  display: flex;
+}
+
+.topBarLeft span, .topBarRight span {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.mainNav {
+  display: flex;
+  align-items: center;
+  padding: 20px 90px;
+}
+
+.logo img {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.searchBar {
+  flex-grow: 1;
+  display: flex;
+  margin-right: 20px;
+}
+
+.searchBar input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+}
+
+.searchButton {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.navIcons {
+  display: flex;
+  align-items: center;
+}
+
+.navIcons img {
+  height: 25px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.notification {
+  position: relative;
+}
+
+.notificationBadge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+.bottomNav {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding: 10px 95px;
+}
+
+.hamburger {
+  cursor: pointer;
+  /* background-color: var(--black); */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #333;
+  margin-right: 15px;
+  cursor: pointer;
+}

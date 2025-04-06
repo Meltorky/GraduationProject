@@ -1,0 +1,153 @@
+.bodyStyles {
+  align-items: center;
+  /* background-color: aqua; */
+  margin: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50%);
+}
+
+@media (max-width: 768px) {
+  /* Adjust breakpoint as needed */
+  .bodyStyles {
+    display: block;
+    justify-content: center;
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+    margin: -30px; /* Adjust margin for smaller screens */
+  }
+}
+.imageStyles {
+  display: flex;
+  justify-content: end;
+}
+
+.inputStyles {
+  justify-content: start;
+}
+
+.formStyles {
+  justify-content: start;
+  margin-top: 20px;
+}
+
+.formStyles input {
+  width: 30vb;
+}
+
+.bodys {
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.a {
+  text-decoration: none;
+  color: #007bff; /* Blue for links */
+}
+
+.container {
+  border-radius: 8px;
+  padding: 40px auto;
+}
+
+.formContainer {
+  text-align: start;
+}
+
+.formTitle {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+  margin-inline-start: 20px;
+}
+
+.formSubtitle {
+  color: #666;
+  margin-bottom: 30px;
+  margin-inline-start: 20px;
+}
+
+.signinForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.formInput {
+  padding-block: 12px;
+  padding-left: 10px;
+  margin-block: 7px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.formOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 15px;
+  margin-left: -5px; /* Add this line */
+}
+
+.rememberMe input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.forgotPassword {
+  font-size: 0.9rem;
+  margin-top: 15px;
+  opacity: 0.7;
+  margin-inline-end: -30px;
+}
+
+.signinButton {
+  background-color: var(--primary); /* Green button */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.signinButton:hover {
+  background-color: var(--secondary); /* Darker green on hover */
+}
+
+.signupLink {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #555;
+  margin-inline-start: 20px;
+}
+
+/* Header Styles */
+.logo img {
+  height: 30px; /* Adjust logo size as needed */
+  margin-block: 10px;
+}
+
+.logo img:hover {
+  filter:grayscale();
+}
+
+.header {
+  border-bottom: 2px solid #dcdcdc; /* Optional: adds a subtle bottom border */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px auto;
+  padding: 0 60px; /* Add padding for smaller screens */
+}
