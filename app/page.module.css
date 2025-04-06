@@ -168,3 +168,8 @@ a.secondary {
 }
 
 /* My app/(main)/page.js Styles */
+
+.container{
+  margin-inline: 123px;
+  margin-block: 15px;
+}

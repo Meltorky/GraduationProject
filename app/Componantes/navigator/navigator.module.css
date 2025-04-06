@@ -8,15 +8,20 @@
 .topBar {
   display: flex;
   justify-content: space-between;
-  padding: 10px 90px;
+  padding-inline: 90px;
+  padding-top: 10px;
   font-size: 14px;
+  font-weight: bolder;
 }
 
-.topBarLeft, .topBarRight {
+.topBarLeft,
+.topBarRight {
   display: flex;
+  margin-left: 20px;
 }
 
-.topBarLeft span, .topBarRight span {
+.topBarLeft span,
+.topBarRight span {
   margin-right: 15px;
   cursor: pointer;
 }
@@ -46,12 +51,16 @@
 }
 
 .searchButton {
-  background-color: green;
+  background-color: var(--primary);
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
+  font-weight: bolder;
+}
+.searchButton:hover {
+  background-color: var(--secondary);
 }
 
 .navIcons {
@@ -59,26 +68,15 @@
   align-items: center;
 }
 
-.navIcons img {
-  height: 25px;
-  margin-left: 15px;
-  cursor: pointer;
-}
 
-.notification {
-  position: relative;
-}
-
-.notificationBadge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: red;
-  color: white;
-  font-size: 12px;
-  padding: 2px 5px;
+.iconHover:hover {
+  background-color: var(--secondary);
   border-radius: 50%;
 }
+
+/* .notification {
+  position: relative;
+} */
 
 .bottomNav {
   display: flex;
@@ -89,11 +87,24 @@
 
 .hamburger {
   cursor: pointer;
-  /* background-color: var(--black); */
+  background-color: var(--primary);
+  color: white;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
 }
+
+.hamburger:hover {
+  background-color: var(--secondary);
+}
+
+
 
 .navLinks {
   display: flex;
@@ -103,7 +114,13 @@
 
 .navLinks a {
   text-decoration: none;
-  color: #333;
+  /* color: #333; */
   margin-right: 15px;
   cursor: pointer;
+  font-weight: 500;
+}
+
+.navLinks a:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
