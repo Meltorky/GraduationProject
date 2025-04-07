@@ -23,6 +23,16 @@
   font-weight: bolder;
 }
 
+.banner h5 {
+  color: black;
+  font-weight: bolder;
+  background-color: var(--secondary);
+  max-width: fit-content;
+  padding-inline: 10px;
+  border-radius: 50px;
+  margin-bottom: 10px;  
+}
+
 .banner span {
   color: var(--primary);
 }
@@ -45,6 +55,9 @@
   border: none;
   border-radius: 15px;
   cursor: pointer;
+}
+.banner-button:hover {
+  background-color: var(--secondary);
 }
 
 .banner-image {

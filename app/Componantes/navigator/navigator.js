@@ -82,14 +82,14 @@ export const Navigator = () => {
           <Link href="/categories" className={styles.hamburger}>
             <FontAwesomeIcon
               icon={faListUl}
-              style={{ marginRight: "8px", width: "20px", height: "20px" }}
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
-            Categories All
+            All Categories
           </Link>
           <Link href="/">Home</Link>
-          <Link href="/shop">Shop</Link>
-          <Link href="/stores">Stores</Link>
-          <Link href="/mega-menu">Mega menu</Link>
+          <Link href="/login">Login</Link>
+          <Link href="/register">Register</Link>
+          <Link href="/cart">Cart</Link>
           <Link href="/pages">Pages</Link>
           <Link href="/account">Account</Link>
           <Link href="/dashboard">Dashboard</Link>

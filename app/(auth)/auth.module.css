@@ -120,11 +120,35 @@
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
+  font-weight: bolder;
 }
 
 .signinButton:hover {
   background-color: var(--secondary); /* Darker green on hover */
 }
+
+.signinButtonGoogle {
+  background-color: white; /* Green button */
+  color: #555;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.signinButtonGoogle:hover {
+  background-color: var(--secondary); /* Darker green on hover */
+}
+
+
 
 .signupLink {
   margin-top: 20px;

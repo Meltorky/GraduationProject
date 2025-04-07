@@ -17,6 +17,7 @@ export default function Home() {
             <form className={styles.signinForm}>
               <input
                 type="text"
+                
                 placeholder="Name"
                 className={styles.formInput}
               />
