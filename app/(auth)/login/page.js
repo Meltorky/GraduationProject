@@ -4,12 +4,36 @@ import styles from "../auth.module.css";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 
+ import { useRouter } from "next/navigation";
+ import { login } from "/lib/auth";
+ import { useAuth } from "/app/Componantes/AuthProvider"; 
 
 
-export default function Home() {
-
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useAuth();
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await login(email, password);
+      setUser({ token: data.token }); // or decode and store user info here
+      router.push("/dashboard");
+    } catch (error) {
+      alert("Login failed");
+    }
+
+    // In your middleware.js, add this check for the login route
+    if (currentPath === "/login" && token) {
+      const decoded = decodeJWT(token);
+      return NextResponse.redirect(
+        new URL(decoded?.role === "Admin" ? "/dashboard" : "/", request.url)
+      );
+    }
+  };
 
   return (
     <div className={styles.bodyStyles}>
@@ -23,7 +47,7 @@ export default function Home() {
             <p className={styles.formSubtitle}>
               Welcome back to FreshCart! Enter your email to get started.
             </p>
-            <form className={styles.signinForm}>
+            <form onSubmit={handleSubmit} className={styles.signinForm}>
               <input
                 type="email"
                 id="email"
@@ -31,6 +55,8 @@ export default function Home() {
                 required
                 placeholder="Email"
                 className={styles.formInput}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
@@ -39,6 +65,8 @@ export default function Home() {
                 required
                 placeholder="******"
                 className={styles.formInput}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <div className={styles.formOptions}>
                 <label className={styles.rememberMe}>
@@ -56,6 +84,16 @@ export default function Home() {
               <button type="submit" className={styles.signinButton}>
                 Sign In
               </button>
+              <p
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                or
+              </p>
               <a href="" className={styles.signinButtonGoogle}>
                 <FcGoogle style={{ width: "20px", height: "20px" }} /> Sign In
                 with Google

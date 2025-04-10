@@ -1,6 +1,7 @@
 import "@/styles/globals.css"; // Import here, NOT in nested layouts
 import styles from "./auth.module.css";
 import Link from "next/link";
+import { AuthProvider } from "../Componantes/AuthProvider";
 
 // app/auth/login/page.js;
 
@@ -23,7 +24,7 @@ export default function AuthLayout({ children }) {
             </div>
           </div>
         </header>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

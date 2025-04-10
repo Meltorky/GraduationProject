@@ -121,6 +121,7 @@
   transition: background-color 0.3s;
   width: 100%;
   font-weight: bolder;
+  /* margin-left: 19px; */
 }
 
 .signinButton:hover {
@@ -128,7 +129,7 @@
 }
 
 .signinButtonGoogle {
-  background-color: white; /* Green button */
+  background-color: rgba(237, 237, 237, 0.611); /* Green button */
   color: #555;
   padding: 12px 20px;
   border: none;

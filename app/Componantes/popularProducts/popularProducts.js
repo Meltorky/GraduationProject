@@ -193,26 +193,6 @@
 //   );
 // };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // "use client";
 // import { useState, useEffect } from "react";
 // import styles from "./popularProducts.module.css";
@@ -299,18 +279,6 @@
 //   );
 // };
 
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./popularProducts.module.css";
@@ -335,7 +303,7 @@ export const PopularProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Product/get-all-products?pagenum=1&Maxpagesize=50&pagesize=50"
+          "https://commerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Product/get-all-products?pagenum=1&Maxpagesize=50&pagesize=50"
         );
         const data = await response.json();
         setProducts(data.data || []);
@@ -349,6 +317,7 @@ export const PopularProducts = () => {
   }, []);
 
   if (loading) return <div className={styles.loading}>Loading products...</div>;
+  // Handle null rating and format rating display
 
   return (
     <div className={styles.container}>
@@ -374,11 +343,31 @@ export const PopularProducts = () => {
                     e.target.src = "/images/error.png";
                   }}
                 />
-                <h3>{product.name}</h3>
-                <p className={styles.price}>{product.price} EGP</p>
                 <div className={styles.category}>
                   {product.categoryName}
                   {product.subCategoryName && ` • ${product.subCategoryName}`}
+                </div>
+                <h3 className={styles.name}>
+                  {product.name.length > 50
+                    ? product.name.substring(0, 20) + "..."
+                    : product.name}
+                </h3>
+                <div className={styles.rating}>
+                  {product.rating === null ? "0" : product.rating}
+                  <span className={styles.star}>★</span>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <a href="" className={styles.addButtom}>
+                    + Add
+                  </a>
+                  <p className={styles.price}>{product.price} EGP</p>
                 </div>
               </div>
             );

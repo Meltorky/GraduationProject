@@ -93,7 +93,7 @@ export const Navigator = () => {
           <Link href="/pages">Pages</Link>
           <Link href="/account">Account</Link>
           <Link href="/dashboard">Dashboard</Link>
-          <Link href="/docs">Docs</Link>
+          <Link href="/profile">Profile</Link>
         </div>
       </div>
     </nav>

@@ -1,7 +1,8 @@
 .container {
     padding: 2rem;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
+    margin-top: 50px;
 }
 
 .productsGrid {
@@ -11,48 +12,11 @@
     margin-top: 2rem;
 }
 
-.productCard {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-    transition: transform 0.2s;
-}
 
 .productCard:hover {
     transform: translateY(-5px);
 }
 
-.productImage {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-iframe.productImage {
-  width: 100%;
-  height: 200px;
-  border-radius: 8px;
-  border: none;
-  overflow: hidden; /* Clip overflowing content */
-}
-
-.price {
-    color: #2ecc71;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-}
-
-.category {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-.container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
 
 .loading, .empty {
   text-align: center;
@@ -61,18 +25,13 @@ iframe.productImage {
   color: #666;
 }
 
-.productsGrid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  margin-top: 2rem;
-}
-
 .productCard {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 1rem;
   transition: transform 0.2s;
+  max-height: min-content;
+  max-height: 500px;
 }
 
 .productCard:hover {
@@ -82,18 +41,62 @@ iframe.productImage {
 .productImage {
   width: 100%;
   height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
+  border-radius: 5px;
   margin-bottom: 1rem;
+  object-fit: contain;
+}
+
+.name{
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+  display: flex; 
+  justify-content: end;
 }
 
 .price {
-  color: #2ecc71;
+  color: var(--primary);
   font-weight: bold;
   margin: 0.5rem 0;
+  align-items: end;
+  display: flex;
+  justify-content: end;
 }
 
-.category {
-  color: #666;
-  font-size: 0.9rem;
+.addButtom{
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-left: -2px;
 }
+
+
+.category {
+  font-size: 0.8em;
+  color: var(--gray);
+  margin-bottom: 5px;
+  display: flex; 
+  justify-content: end;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  font-size: 1em;
+  color: var(--secondary); /* Orange color for stars */
+  margin-top: 7px;
+  margin-right: -2px;
+}
+
+.star {
+  margin-left: 2px;
+  padding-bottom: 5px;
+}
+

@@ -9,7 +9,6 @@ export default async function Home() {
   return (
     <div className={styles.container}>
       <Banner />
-      <h1>Our Posts</h1>
       <PopularProducts/>
     </div>
   );
