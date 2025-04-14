@@ -303,10 +303,23 @@ export const PopularProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://commerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Product/get-all-products?pagenum=1&Maxpagesize=50&pagesize=50"
+          "https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Product/get-all-products?pagenum=1&Maxpagesize=267&pagesize=267"
         );
         const data = await response.json();
-        setProducts(data.data || []);
+        // setProducts(data.data || []);
+        const filtered = (data.data || [])
+          .filter(
+            (product) =>
+              product.photos &&
+              product.photos.length > 0 &&
+              Math.abs(product.stockQuantity) > 0
+          )
+          .sort(
+            (a, b) => Math.abs(b.stockQuantity) - Math.abs(a.stockQuantity),
+            (a, b) => b.rating - a.rating
+          );
+
+        setProducts(filtered);
       } catch (error) {
         console.error("Fetch error:", error);
       } finally {
@@ -321,7 +334,7 @@ export const PopularProducts = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Popular Products</h1>
+      <h1 style={{fontWeight:"bolder",fontSize:"2rem",color:"var(--primary)"}}>Popular Products</h1>
 
       <div className={styles.productsGrid}>
         {products.length > 0 ? (
@@ -353,8 +366,13 @@ export const PopularProducts = () => {
                     : product.name}
                 </h3>
                 <div className={styles.rating}>
-                  {product.rating === null ? "0" : product.rating}
+                  {product.rating === null ? "no rating yet " : product.rating}
                   <span className={styles.star}>★</span>
+                </div>
+                <div>
+                  <span className={styles.sold}>
+                    {Math.abs(product.stockQuantity)} sold
+                  </span>
                 </div>
                 <div
                   style={{
@@ -364,9 +382,17 @@ export const PopularProducts = () => {
                     alignItems: "center",
                   }}
                 >
-                  <a href="" className={styles.addButtom}>
-                    + Add
-                  </a>
+                  <button
+                    className={styles.addButtom}
+                    onClick={() => {
+                      window.open(
+                        `/single-product/${product.productID}`,
+                        "_blank"
+                      );
+                    }}
+                  >
+                    Buy
+                  </button>
                   <p className={styles.price}>{product.price} EGP</p>
                 </div>
               </div>

@@ -28,7 +28,7 @@ export function middleware(request) {
   console.log("Token found:", token ? "Yes" : "No");
 
   // Admin-only routes
-  const adminRoutes = ["/dashboard", "/admin"];
+  const adminRoutes = ["/dashboard", "/profile", "/admin"];
   const currentPath = request.nextUrl.pathname;
 
   // Check if current path is an admin route
@@ -49,12 +49,6 @@ export function middleware(request) {
     const decoded = decodeJWT(token);
     console.log("Decoded token:", decoded);
 
-    // Check if user has Admin role - adjust field name if needed based on your token structure
-    // if (!decoded || decoded.role !== "Admin") {
-    //   console.log("User is not admin, redirecting to unauthorized");
-    //   return NextResponse.redirect(new URL("/unauthorized", request.url));
-    // }
-
     if (!decoded) {
       console.log("User is not admin, redirecting to unauthorized");
       return NextResponse.redirect(new URL("/unauthorized", request.url));
@@ -74,14 +68,13 @@ export function middleware(request) {
 export const config = {
   matcher: [
     "/dashboard",
-    "/dashboard/:path*",
+    // "/dashboard/:path*",
     "/admin",
-    "/admin/:path*",
+    "/profile",
     "/login",
   ],
 };
 
-
 // lefew35865@clubemp.com
 // besecab627@anlocc.com
-// revahi6260@clubemp.com
+// revahi6260@clubemp.com   //++

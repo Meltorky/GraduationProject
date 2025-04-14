@@ -148,9 +148,25 @@
 
 "use client";
 
+import Link from "next/link";
+import styles from "./profile.module.css";
 import { useEffect, useState } from "react";
 import { getToken } from "/lib/auth";
 import { jwtDecode } from "jwt-decode";
+import { removeToken } from "/lib/auth";
+import { useRouter } from "next/navigation"; // Add this at top
+import {
+  FaHome,
+  FaCity,
+  FaGlobe,
+  FaMapPin,
+  FaPhone,
+  FaVenusMars,
+  FaBirthdayCake,
+  FaUser,
+  FaEnvelope,
+  faArrowLeft,
+} from "react-icons/fa";
 
 export default function ProfilePage() {
   const [userData, setUserData] = useState(null);
@@ -221,68 +237,198 @@ export default function ProfilePage() {
   if (loading) return <div>Loading...</div>;
   if (!formData) return <div>Profile not found.</div>;
 
-  return (
-    <div className="max-w-xl mx-auto mt-10 p-4 border rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4">Profile</h1>
+  const displayNameMap = {
+    name: "Full Name",
+    email: "Email Address",
+    address: "Street Address",
+    city: "City",
+    country: "Country",
+    postalCode: "Postal Code",
+    phoneNumber: "Phone Number",
+    gender: "Gender",
+    dateOfBirth: "Date of Birth",
+    // Add other key mappings as needed
+  };
 
-      {Object.entries(formData).map(([key, value]) => {
-        if (key === "id") {
-          return null; // Don't render anything for the "id" key
+  const displayIconMap = {
+    name: <FaUser />,
+    email: <FaEnvelope />,
+    address: <FaHome />,
+    city: <FaCity />,
+    country: <FaGlobe />,
+    postalCode: <FaMapPin />,
+    phoneNumber: <FaPhone />,
+    gender: <FaVenusMars />,
+    dateOfBirth: <FaBirthdayCake />,
+    // Add other key mappings as needed
+  };
+
+  // delete the account
+  const router = useRouter(); // Inside component
+  const handleDeleteAccount = async () => {
+    const confirmDelete = confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(
+        "https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Account/delete-account",
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
 
-        if (key === "email") {
+      if (res.ok) {
+        alert("Account deleted successfully.");
+        removeToken(); // remove from cookies
+        router.push("/login"); // or redirect to main: router.push("/")
+      } else {
+        alert("You Can't Delete Your Account Since You Ordered Before !");
+      }
+    } catch (error) {
+      console.error("[Delete Account] Error:", error);
+      alert("Error deleting account.");
+    }
+  };
+
+  // handle logout
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("Are you sure you want to logout?"); // Add confirmation
+    if (confirmLogout) {
+      removeToken(); // Remove the token from cookies
+      router.push("/login"); // Redirect to the login page after logout
+      alert("You have been logged out successfully."); // Add alert
+    } else {
+      alert("Logout cancelled.");
+    }
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div className={styles.card} style={{ padding: "40px", margin: "40px" }}>
+        <div className={styles.divHeader}>
+          <h1 className={styles.header}>Profile Details</h1>
+          <Link
+            href="/"
+            style={{
+              marginTop: "-30px",
+              marginLeft: "100px",
+              marginRight: "1px",
+            }}
+          >
+            <button
+              className={styles.button}
+              style={{ backgroundColor: "var(--primary)" }}
+            >
+              &lt; Back To Home
+            </button>
+          </Link>
+        </div>
+
+        {Object.entries(formData).map(([key, value]) => {
+          const displayName = displayNameMap[key] || key; // Use display name or original key
+          const displayIcon = displayIconMap[key]; // Use display name or original key
+
+          if (key === "id") {
+            return null; // Don't render anything for the "id" key
+          }
+
+          if (key === "email") {
+            return (
+              <div key={key} className={styles.item}>
+                <span className={styles.icon}>{displayIcon}</span>
+                <label className={styles.label}>{displayName}</label>
+                <input
+                  className={styles.input}
+                  type="email"
+                  name={key}
+                  value={value}
+                  disabled
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "8px",
+                    borderColor: "var(--primary)",
+                  }}
+                />
+              </div>
+            );
+          }
+
           return (
-            <div key={key} className="mb-4">
-              <label className="block font-semibold">{key}</label>
+            <div key={key} className={styles.item}>
+              <span className={styles.icon}>{displayIcon}</span>
+              <label className={styles.label}>{displayName}</label>
               <input
-                className="w-full border p-2 rounded bg-gray-100"
-                type="email"
+                className="w-full border p-2 rounded"
+                type={key === "dateOfBirth" ? "date" : "text"}
                 name={key}
                 value={value}
-                disabled
+                onChange={handleChange}
+                disabled={!isEditing}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "8px",
+                  borderColor: "var(--primary)",
+                }}
               />
             </div>
           );
-        }
+        })}
 
-        return (
-          <div key={key} className="mb-4">
-            <label className="block font-semibold capitalize">{key}</label>
-            <input
-              className="w-full border p-2 rounded"
-              type={key === "dateOfBirth" ? "date" : "text"}
-              name={key}
-              value={value}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
+        {isEditing ? (
+          <div className="flex justify-between">
+            <button
+              onClick={handleSave}
+              className={styles.button}
+              style={{ backgroundColor: "var(--secondary)" }}
+            >
+              Save Changes
+            </button>
+            <button
+              onClick={() => setIsEditing(false)}
+              className={styles.button}
+              style={{ backgroundColor: "var(--gray)" }}
+            >
+              Cancel
+            </button>
           </div>
-        );
-      })}
-
-      {isEditing ? (
-        <div className="flex justify-between">
+        ) : (
           <button
-            onClick={handleSave}
-            className="bg-green-600 text-white px-4 py-2 rounded"
+            onClick={() => setIsEditing(true)}
+            className={styles.button}
+            style={{ backgroundColor: "var(--primary)" }}
           >
-            Save Changes
+            Edit Profile
           </button>
-          <button
-            onClick={() => setIsEditing(false)}
-            className="bg-gray-400 text-white px-4 py-2 rounded"
-          >
-            Cancel
-          </button>
-        </div>
-      ) : (
+        )}
         <button
-          onClick={() => setIsEditing(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          onClick={handleLogout}
+          className={styles.button}
+          style={{ backgroundColor: "var(--accent)" }}
         >
-          Edit Profile
+          Logout
         </button>
-      )}
+        <button
+          onClick={handleDeleteAccount}
+          className={styles.button}
+          style={{ backgroundColor: "var(--accent)" }}
+        >
+          Delete Account
+        </button>
+      </div>
     </div>
   );
 }

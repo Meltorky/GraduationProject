@@ -149,8 +149,6 @@
   background-color: var(--secondary); /* Darker green on hover */
 }
 
-
-
 .signupLink {
   margin-top: 20px;
   font-size: 0.9rem;
@@ -165,7 +163,7 @@
 }
 
 .logo img:hover {
-  filter:grayscale();
+  filter: grayscale();
 }
 
 .header {

@@ -1,0 +1,294 @@
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.product {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.imageContainer {
+  flex: 1;
+  background-color: #f9f5f0;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.productImage {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.productDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.category {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.productName {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 15px 0;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stars {
+  display: flex;
+  color: var(--secondary);
+  margin-right: 10px;
+}
+
+.reviewCount {
+  color: #666;
+  font-size: 14px;
+}
+
+.priceContainer {
+  margin-bottom: 30px;
+}
+
+.currentPrice {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-right: 10px;
+}
+
+.originalPrice {
+  font-size: 18px;
+  color: var(--gray);
+  text-decoration: line-through;
+}
+
+.discount {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #eee;
+  margin: 15px 0;
+}
+
+.sizeOptions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sizeOption {
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.sizeOption.active {
+  border-color: #22a122;
+  color: #22a122;
+}
+
+.quantitySelector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quantityButton {
+  width: 40px;
+  height: 40px;
+  background-color: #f5f5f5;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.addToCartButton {
+  flex: 1;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.addToCartButton:hover {
+  background-color: var(--secondary);
+}
+
+.wishlistButton,
+.compareButton {
+  width: 48px;
+  height: 48px;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+}
+
+.wishlistButton:hover {
+  background-color: white;
+  border: solid 1px var(--primary);
+  border-color: var(--primary);
+}
+
+.wishlistButton.selected {
+
+    background-color: var(--secondary);
+}
+.wishlistButton svg path {
+  fill: var(--gray); /* Default fill color */
+}
+
+.wishlistButton:hover svg path {
+  fill: var(--primary); /* Hover fill color */
+}
+
+.wishlistButton.selected svg path {
+  fill: var(--accent); /* Selected fill color */
+}
+.productInfo {
+  margin-top: 40px;
+}
+
+.productInfo h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.productInfo p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.infoRow {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.infoLabel {
+  width: 120px;
+  font-weight: 500;
+  color: #666;
+}
+
+.infoValue {
+  color: #333;
+}
+
+.productReviews {
+  margin-top: 40px;
+}
+
+.productReviews h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.review {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.reviewerName {
+  font-weight: 500;
+}
+
+.reviewDate {
+  color: #999;
+  font-size: 14px;
+}
+
+.reviewRating {
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+.reviewText {
+  color: #666;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .product {
+    flex-direction: column;
+  }
+
+  .productDetails {
+    margin-top: 20px;
+  }
+}

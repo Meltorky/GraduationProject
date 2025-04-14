@@ -1,11 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css"; // Import here, NOT in nested layouts
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import $ from "jquery";
+// import "datatables.net-dt/css/jquery.dataTables.css";
+import "datatables.net-dt/css/dataTables.dataTables.css";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",

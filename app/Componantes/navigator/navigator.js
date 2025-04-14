@@ -38,18 +38,18 @@ export const Navigator = () => {
             <FontAwesomeIcon
               icon={faBell}
               style={{
-                width: "25px",
-                height: "25px",
+                width: "30px",
+                height: "30px",
                 color: "var(--gray)",
               }}
             />
           </Link>
-          <Link href="/signup" className={styles.iconHover}>
+          <Link href="/profile" className={styles.iconHover}>
             <FontAwesomeIcon
               icon={faCircleUser}
               style={{
-                width: "25px",
-                height: "25px",
+                width: "30px",
+                height: "30px",
                 color: "var(--gray)",
               }}
             />
@@ -58,8 +58,8 @@ export const Navigator = () => {
             <FontAwesomeIcon
               icon={faBox}
               style={{
-                width: "25px",
-                height: "25px",
+                width: "30px",
+                height: "30px",
                 color: "var(--gray)",
               }}
             />{" "}
@@ -68,8 +68,8 @@ export const Navigator = () => {
             <FontAwesomeIcon
               icon={faCartPlus}
               style={{
-                width: "25px",
-                height: "25px",
+                width: "30px",
+                height: "30px",
                 color: "var(--gray)",
               }}
             />{" "}
@@ -91,7 +91,7 @@ export const Navigator = () => {
           <Link href="/register">Register</Link>
           <Link href="/cart">Cart</Link>
           <Link href="/pages">Pages</Link>
-          <Link href="/account">Account</Link>
+          <Link href="/products">Products</Link>
           <Link href="/dashboard">Dashboard</Link>
           <Link href="/profile">Profile</Link>
         </div>

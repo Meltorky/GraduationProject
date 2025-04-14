@@ -3,11 +3,12 @@ import { useState } from "react";
 import styles from "../auth.module.css";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { useEffect } from "react";
 
- import { useRouter } from "next/navigation";
- import { login } from "/lib/auth";
- import { useAuth } from "/app/Componantes/AuthProvider"; 
-
+import { useRouter } from "next/navigation";
+import { login } from "/lib/auth";
+import { useAuth } from "/app/Componantes/AuthProvider";
+import { setToken } from "/lib/auth"; // Import your setToken method
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -35,6 +36,15 @@ export default function LoginPage() {
     }
   };
 
+  // googleLoginWindow = window.open()
+  // googleLoginWindow = window.open()
+  // googleLoginWindow = window.open()
+
+  // Google login button click handler
+
+  // googleLoginWindow = window.open()
+  // googleLoginWindow = window.open()
+  // googleLoginWindow = window.open()
   return (
     <div className={styles.bodyStyles}>
       <div className={styles.imageStyles}>
@@ -72,14 +82,22 @@ export default function LoginPage() {
                 <label className={styles.rememberMe}>
                   <input type="checkbox" /> Remember Me
                 </label>
-                <a href="#" className={styles.forgotPassword}>
+                {/* <a href="/forgot-password" className={styles.forgotPassword}>
                   Forgot password?
                   <span
                     style={{ color: "var(--primary)", fontWeight: "bolder" }}
                   >
                     Reset It
                   </span>
-                </a>
+                </a> */}
+                <Link href="/forget-password" className={styles.forgotPassword}>
+                  Forgot password?
+                  <span
+                    style={{ color: "var(--primary)", fontWeight: "bolder" }}
+                  >
+                    Reset It
+                  </span>
+                </Link>
               </div>
               <button type="submit" className={styles.signinButton}>
                 Sign In
@@ -94,9 +112,12 @@ export default function LoginPage() {
               >
                 or
               </p>
-              <a href="" className={styles.signinButtonGoogle}>
-                <FcGoogle style={{ width: "20px", height: "20px" }} /> Sign In
-                with Google
+              <a
+                href="https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Account/google-login"
+                className={styles.signinButtonGoogle}
+              >
+                <FcGoogle style={{ width: "20px", height: "20px" }} />
+                Sign In with Google
               </a>
             </form>
             <p className={styles.signupLink}>
@@ -111,14 +132,5 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
-    /* <div className={styles.inputStyles}>
-        <h2>Sign in to FreshCart</h2>
-        <small style={{ opacity: 0.5 }}>
-          Welcome back to FreshCart. Enter Your Email To get started
-        </small>
-        <form action="" className={styles.formStyles}>
-          <input type="text" placeholder="Email" />
-        </form>
-      </div> */
   );
 }
