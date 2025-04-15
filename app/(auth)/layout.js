@@ -7,7 +7,7 @@ import { AuthProvider } from "../Componantes/AuthProvider";
 
 export default function AuthLayout({ children }) {
   return (
-    <html lang="en">
+    <html>
       <body>
         <header className="header">
           <div className={styles.header}>

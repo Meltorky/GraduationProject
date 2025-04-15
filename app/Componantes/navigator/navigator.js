@@ -1,6 +1,9 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./navigator.module.css";
+import { useState } from "react";
+import CartSidebar from "../CartSidebar/CartSidebar.jsx"; // Import the cart sidebar component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +12,14 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
 
 export const Navigator = () => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Toggle cart sidebar
+  const toggleCart = (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    setIsCartOpen((prevState) => !prevState);
+  };
+
   return (
     <nav className={styles.navigation}>
       <div className={styles.topBar}>
@@ -54,7 +65,7 @@ export const Navigator = () => {
               }}
             />
           </Link>
-          <Link href="/orders" className={styles.iconHover}>
+          <Link href="/invoice" className={styles.iconHover}>
             <FontAwesomeIcon
               icon={faBox}
               style={{
@@ -89,11 +100,18 @@ export const Navigator = () => {
           <Link href="/">Home</Link>
           <Link href="/login">Login</Link>
           <Link href="/register">Register</Link>
-          <Link href="/cart">Cart</Link>
+          <a href="#" onClick={toggleCart}>
+            Cart
+          </a>
           <Link href="/pages">Pages</Link>
           <Link href="/products">Products</Link>
           <Link href="/dashboard">Dashboard</Link>
           <Link href="/profile">Profile</Link>
+          {/* Cart Sidebar component */}
+          <CartSidebar
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
+          />
         </div>
       </div>
     </nav>

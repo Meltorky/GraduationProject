@@ -6,7 +6,7 @@ import { Navigator } from "../Componantes/navigator/navigator";
 
 export default function MainLayout({ children }) {
   return (
-    <html lang="en">
+    <html>
       <body>
         <header>
           <Navigator />

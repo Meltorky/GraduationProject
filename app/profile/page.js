@@ -173,13 +173,13 @@ export default function ProfilePage() {
   const [formData, setFormData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const router = useRouter(); // Inside component
 
   const token = getToken();
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!token) return;
-
+      if (!token) router.push("/login"); // Redirect to the home page
       try {
         const res = await fetch(
           "https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Account/profile",
@@ -264,7 +264,6 @@ export default function ProfilePage() {
   };
 
   // delete the account
-  const router = useRouter(); // Inside component
   const handleDeleteAccount = async () => {
     const confirmDelete = confirm(
       "Are you sure you want to delete your account? This action cannot be undone."

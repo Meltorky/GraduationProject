@@ -70,7 +70,7 @@ export const config = {
     "/dashboard",
     // "/dashboard/:path*",
     "/admin",
-    "/profile",
+    "/profile1",
     "/login",
   ],
 };

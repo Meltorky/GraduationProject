@@ -3,11 +3,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import styles from "./single-product.module.css";
+import { getToken } from "/lib/auth";
+import { useRouter } from "next/navigation";
+import ProductReviews from "./productReviews"; // Adjust path as needed
+import CartSidebar from "../../../Componantes/CartSidebar/CartSidebar"; // Adjust path as needed
 
 const SingleProductPage = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const token = getToken(); // or however you store your token
+
+  // handle cart
+  const [isLoading, setIsLoading] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // review conts
+  const [reviewText, setReviewText] = useState("");
+  const [rating, setRating] = useState(5);
+  const [submittingReview, setSubmittingReview] = useState(false);
+
   // the claude code
 
   const [isSelected, setIsSelected] = useState(false);
@@ -19,14 +35,14 @@ const SingleProductPage = () => {
   const [selectedSize, setSelectedSize] = useState("250g");
 
   // Format date for reviews
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
+  // const formatDate = (dateString) => {
+  //   const date = new Date(dateString);
+  //   return date.toLocaleDateString("en-US", {
+  //     year: "numeric",
+  //     month: "short",
+  //     day: "numeric",
+  //   });
+  // };
 
   // Generate star rating display
   const renderStars = (rating) => {
@@ -111,67 +127,100 @@ const SingleProductPage = () => {
     ? fixGoogleDriveUrl(rawUrl)
     : "/images/defaultimage.png";
 
+  // handle add review
+  const handleSubmitReview = async () => {
+    if (!token) router.push("/login"); // Redirect to the home page
+
+    if (rating < 1 || rating > 5)
+      return alert("Rating must be between 1 and 5");
+
+    try {
+      setSubmittingReview(true);
+
+      const res = await fetch(
+        "https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/ProductReview/add-product-review",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            productId: product.productID,
+            rating: rating,
+            reviewText: reviewText,
+          }),
+        }
+      );
+      window.location.reload(); // Reload the current page
+      if (!res.ok) throw new Error("Failed to submit review");
+
+      alert("Review submitted!");
+      setReviewText("");
+      setRating(5);
+      // Optionally refetch product to show updated reviews
+    } catch (err) {
+      console.error("Error submitting review:", err);
+      router.push("/login"); // Redirect to the home page
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
+
+  // handle car functions
+  // Extract cartId from token
+  const getCartId = () => {
+    if (!token) return null;
+
+    try {
+      // Assuming token is JWT, extract nameid from payload
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.nameid;
+    } catch (error) {
+      console.error("Error extracting cartId from token:", error);
+      return null;
+    }
+  };
+  // Add to cart function
+  const addToCart = async () => {
+    const cartId = getCartId();
+    if (!cartId) {
+      alert("You need to be logged in to add items to cart");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Cart/add-to-cart?cartId=${cartId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`,
+          },
+          body: JSON.stringify({
+            productId: parseInt(productId),
+            quantity: count,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        // Open cart sidebar on successful add
+        setIsCartOpen(true);
+      } else {
+        console.error("Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
+  // if (isLoading || !product) {
+  //   return <div className={styles.loading}>Loading product...</div>;
+  // }
+
   return (
-    // <div className={styles.container}>
-    //   <div className={styles.product}>
-    //     <div className={styles.productImage}>
-    //       <img
-    //         src={photoUrl}
-    //         alt={product.name}
-    //         className={styles.productImage}
-    //         onError={(e) => {
-    //           e.target.onerror = null;
-    //           e.target.src = "/images/error.png";
-    //         }}
-    //       />
-    //     </div>
-    //     <div className={styles.productDetails}>
-    //       <p>Subcategory: {product.subCategoryName || "Subcategory"}</p>
-    //       <h1>{product.name}</h1>
-    //       <p>Rating: {product.rating || "★ (0)"}</p>
-    //       <p>Price:{product.price} EGP</p>
-    //       <p>
-    //         Quantity:{" "}
-    //         {product.stockQuantity < 0
-    //           ? product.stockQuantity * -1
-    //           : product.stockQuantity}
-    //       </p>
-    //       <div className={styles.productActions}>
-    //         <button>+</button>
-    //         <p>{count}</p>
-    //         <button>-</button>
-    //         <button className={styles.addToCartButton}>Add to Cart</button>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className={styles.productDescription}>
-    //     <h2>Description</h2>
-    //     <p>{product.description}</p>
-    //     <h2>Details</h2>
-    //     <p>Brand: {product.brandName || "Brand"}</p>
-    //     <p>Category: {product.categoryName || "Category"}</p>
-    //     <p>Subcategory: {product.subCategoryName || "Subcategory"}</p>
-    //     <p>
-    //       Rating: {product.rating || "no rating yet"} ★ {"  "}
-    //       {product.reviewCount}
-    //     </p>
-    //   </div>
-
-    //   <div className={styles.productReviews}>
-    //     <h2>Reviews</h2>
-    //     {product.reviews && product.reviews.length > 0 ? (
-    //       product.reviews.map((review) => (
-    //         <div key={review.id} className={styles.review}>
-    //           <p>{review.comment}</p>
-    //           <p>Rating: {review.rating} ★</p>
-    //         </div>
-    //       ))
-    //     ) : (
-    //       <p>No reviews available.</p>
-    //     )}
-    //   </div>
-    // </div>
     <div className={styles.container}>
       <div className={styles.product}>
         <div className={styles.imageContainer}>
@@ -252,7 +301,8 @@ const SingleProductPage = () => {
           </div>
 
           <div className={styles.actionButtons}>
-            <button className={styles.addToCartButton}>
+            {/* Add to cart button */}
+            <button className={styles.addToCartButton} onClick={addToCart}>
               <svg
                 width="20"
                 height="20"
@@ -284,7 +334,6 @@ const SingleProductPage = () => {
               </svg>
               Add to cart
             </button>
-
             <button
               className={`${styles.wishlistButton} ${
                 isSelected ? styles.selected : ""
@@ -381,8 +430,9 @@ const SingleProductPage = () => {
       </div>
 
       <div className={styles.productReviews}>
-        <h2>Reviews</h2>
-        {product.reviews && product.reviews.length > 0 ? (
+        <ProductReviews />
+        <h2>Leave a Review</h2>
+        {/* {product.reviews && product.reviews.length > 0 ? (
           product.reviews.map((review, index) => (
             <div key={index} className={styles.review}>
               <div className={styles.reviewHeader}>
@@ -401,8 +451,38 @@ const SingleProductPage = () => {
           ))
         ) : (
           <p>No reviews available.</p>
-        )}
+        )} */}
       </div>
+      <div className={styles.reviewForm}>
+        <textarea
+          placeholder="Write your review..."
+          value={reviewText}
+          onChange={(e) => setReviewText(e.target.value)}
+          className={styles.reviewInput}
+        />
+        <label>
+          Rating:
+          <select
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+          >
+            {[1, 2, 3, 4, 5].map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          onClick={handleSubmitReview}
+          disabled={submittingReview}
+          className={styles.submitButton}
+        >
+          {submittingReview ? "Submitting..." : "Submit Review"}
+        </button>
+      </div>
+      {/* Cart Sidebar */}
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 };

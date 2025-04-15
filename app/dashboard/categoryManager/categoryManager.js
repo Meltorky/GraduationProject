@@ -217,9 +217,13 @@ const CategoryManager = () => {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
         {isEditing ? (
-          <button onClick={handleUpdate}>Update</button>
+          <button onClick={handleUpdate} >
+            Update
+          </button>
         ) : (
-          <button onClick={handleAdd}>Add</button>
+          <button onClick={handleAdd}>
+            Add
+          </button>
         )}
       </div>
       <table>
@@ -236,7 +240,11 @@ const CategoryManager = () => {
               <td>{cat.categoryCode}</td>
               <td>{cat.name}</td>
               <td>
-                <button onClick={() => handleEditClick(cat)}>Edit</button>
+                <button
+                  onClick={() => handleEditClick(cat)}
+                >
+                  Edit
+                </button>
                 <button
                   onClick={() => {
                     if (
@@ -247,6 +255,7 @@ const CategoryManager = () => {
                       handleDelete(cat.categoryCode);
                     }
                   }}
+                  style={{ backgroundColor: "var(--accent)" }}
                 >
                   Delete
                 </button>
