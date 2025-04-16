@@ -24,6 +24,8 @@ import { useState, useEffect } from "react";
 import CategoryManager from "./categoryManager/categoryManager";
 import SubCategoryManager from "./subCategoryManager/subCategoryManager";
 import BrandManager from "./brandManager/brandManager";
+import OrderManager from "./orderManager/orderManager";
+import InvoiceManager from "./invoiceManager/invoiceManager";
 import styles from "./dashboard.module.css";
 import Sidebar from "./sidebar/sidebar";
 import Link from "next/link";
@@ -39,6 +41,8 @@ export default function DashboardPage() {
     { id: "categories", label: "Category Manager" },
     { id: "subcategories", label: "SubCategory Manager" },
     { id: "brands", label: "Brand Manager" },
+    { id: "orders", label: "Order Manager" },
+    { id: "invoices", label: "Invoice Manager" },
   ];
 
   // Check if on mobile screen
@@ -76,6 +80,10 @@ export default function DashboardPage() {
         return <SubCategoryManager />;
       case "brands":
         return <BrandManager />;
+      case "orders":
+        return <OrderManager />;
+      case "invoices":
+        return <InvoiceManager />;
       case "welcome":
       default:
         return (

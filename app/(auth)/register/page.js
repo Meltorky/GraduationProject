@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styles from "../auth.module.css";
 import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -13,7 +14,7 @@ export default function RegisterPage() {
     country: "country",
     postalCode: "0000",
     phoneNumber: "+20000000000",
-    gender: "",
+    gender: "female",
     dateOfBirth: "",
   });
 
@@ -91,6 +92,24 @@ export default function RegisterPage() {
                     />
                   </div>
                 ))} */}
+
+                <a
+                  href="https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Account/google-login"
+                  className={styles.signinButtonGoogle}
+                >
+                  <FcGoogle style={{ width: "20px", height: "20px" }} />
+                  Sign In with Google
+                </a>
+                <p
+                  style={{
+                    marginTop: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  or
+                </p>
                 <input
                   type="text"
                   placeholder="Name"
@@ -123,7 +142,7 @@ export default function RegisterPage() {
                   name="dateOfBirth"
                   onChange={handleChange}
                 />
-                <select
+                {/* <select
                   className={styles.formInput}
                   value={form.gender}
                   name="gender"
@@ -131,7 +150,7 @@ export default function RegisterPage() {
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
-                </select>
+                </select> */}
                 <button
                   type="submit"
                   className={styles.signinButton}
@@ -226,8 +245,7 @@ export default function RegisterPage() {
                 </Link>
               </span>
             </p>
-            <p className={styles.signupLink}
-            style={{ marginTop: "10px" }}>
+            <p className={styles.signupLink} style={{ marginTop: "10px" }}>
               Activate your email address?{" "}
               <span style={{ color: "var(--primary)", fontWeight: "bolder" }}>
                 <Link style={{ marginLeft: "-8px" }} href="/login">

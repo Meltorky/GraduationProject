@@ -19,5 +19,5 @@ export default function GoogleBridgePage() {
     }
   }, [token]);
 
-  return <p style={{fontWeight:"bolder",margin:"20px",fontSize:"5rem",color:"var(--primary)"}}>Redirecting...</p>;
+  return <p style={{fontWeight:"bolder",margin:"20px",fontSize:"3rem",color:"var(--primary)"}}>Redirecting...</p>;
 }

@@ -7,6 +7,8 @@ import { getToken } from "/lib/auth";
 import { useRouter } from "next/navigation";
 import ProductReviews from "./productReviews"; // Adjust path as needed
 import CartSidebar from "../../../Componantes/CartSidebar/CartSidebar"; // Adjust path as needed
+import Image from "next/image";
+import Link from "next/link";
 
 const SingleProductPage = () => {
   const { productId } = useParams();
@@ -28,9 +30,51 @@ const SingleProductPage = () => {
 
   const [isSelected, setIsSelected] = useState(false);
 
-  const toggleSelection = () => {
+  // const toggleSelection = () => {
+  //   setIsSelected(!isSelected);
+  // };
+
+  // Extract nameId from token in cookies
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  //////////////////////// Handle add to whishlist ////////////////////////////
+  // Define the toggleSelection function properly as a function
+  const toggleSelection = (productId) => {
     setIsSelected(!isSelected);
+
+    // Your wishlist API call logic here
+    const addToWishlist = async () => {
+      const cartId = getCartId();
+      console.log("Adding to cart with ID:", cartId); //  Check this output
+
+      try {
+        const response = await fetch(
+          `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Wishlist/add-to-wishlist?wishlistId=${cartId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ productId: productId }),
+          }
+        );
+
+        // Optional: Show success message
+      } catch (error) {
+        console.error("Error adding to wishlist:", error);
+        // Optional: Show error message
+        setIsSelected(false); // Revert UI state on error
+      }
+    };
+
+    // Only call API if we're adding to wishlist (not removing)
+    if (!isSelected) {
+      addToWishlist();
+    }
   };
+  //////////////////////////////////////////////////////////////
+
   const [count, setCount] = useState(1);
   const [selectedSize, setSelectedSize] = useState("250g");
 
@@ -188,7 +232,6 @@ const SingleProductPage = () => {
       alert("You need to be logged in to add items to cart");
       return;
     }
-
     try {
       const response = await fetch(
         `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Cart/add-to-cart?cartId=${cartId}`,
@@ -338,7 +381,7 @@ const SingleProductPage = () => {
               className={`${styles.wishlistButton} ${
                 isSelected ? styles.selected : ""
               }`}
-              onClick={toggleSelection}
+              onClick={() => toggleSelection(product.productID)}
             >
               <svg
                 width="20"

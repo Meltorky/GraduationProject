@@ -6,10 +6,11 @@ import { useState } from "react";
 import CartSidebar from "../CartSidebar/CartSidebar.jsx"; // Import the cart sidebar component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
+import { getToken } from "/Lib/auth"; // Adjust the import path as necessary
 
 export const Navigator = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -19,6 +20,22 @@ export const Navigator = () => {
     e.preventDefault(); // Prevent default link behavior
     setIsCartOpen((prevState) => !prevState);
   };
+
+  const token = getToken();
+
+  const getCartId = () => {
+    if (!token) return null;
+
+    try {
+      // Assuming token is JWT, extract nameid from payload
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.nameid;
+    } catch (error) {
+      console.error("Error extracting cartId from token:", error);
+      return null;
+    }
+  };
+  const cartId = getCartId();
 
   return (
     <nav className={styles.navigation}>
@@ -45,9 +62,9 @@ export const Navigator = () => {
           <button className={styles.searchButton}>Search</button>
         </div>
         <div className={styles.navIcons}>
-          <Link href="/notifications" className={styles.iconHover}>
+          <Link href={`/wishlist/${cartId}`} className={styles.iconHover}>
             <FontAwesomeIcon
-              icon={faBell}
+              icon={faHeart}
               style={{
                 width: "30px",
                 height: "30px",
@@ -75,7 +92,7 @@ export const Navigator = () => {
               }}
             />{" "}
           </Link>
-          <Link href="/cart" className={styles.iconHover}>
+          <a href="#" onClick={toggleCart} className={styles.iconHover}>
             <FontAwesomeIcon
               icon={faCartPlus}
               style={{
@@ -84,7 +101,7 @@ export const Navigator = () => {
                 color: "var(--gray)",
               }}
             />{" "}
-          </Link>
+          </a>
         </div>
       </div>
 

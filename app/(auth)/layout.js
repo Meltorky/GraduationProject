@@ -7,8 +7,7 @@ import { AuthProvider } from "../Componantes/AuthProvider";
 
 export default function AuthLayout({ children }) {
   return (
-    <html>
-      <body>
+      <div>
         <header className="header">
           <div className={styles.header}>
             <div className={styles.logo}>
@@ -25,7 +24,6 @@ export default function AuthLayout({ children }) {
           </div>
         </header>
         <AuthProvider>{children}</AuthProvider>
-      </body>
-    </html>
+      </div>
   );
 }

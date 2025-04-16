@@ -13,7 +13,21 @@ export default function OrderDetailsPage({ params }) {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-const token = getToken(); // Using your existing getToken method
+  const token = getToken(); // Using your existing getToken method
+
+  // handle images
+  const fixGoogleDriveUrl = (url) => {
+    if (url.includes("drive.google.com") && url.includes("open?id=")) {
+      const parts = url.split("id=");
+      if (parts.length > 1) {
+        const fileId = parts[1].split("&")[0];
+        const googleDriveUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+        return `/api/imageproxy?url=${encodeURIComponent(googleDriveUrl)}`;
+      }
+    }
+    return url;
+  };
+
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
@@ -141,7 +155,10 @@ const token = getToken(); // Using your existing getToken method
                     <div className={styles.productImage}>
                       {item.mainImage && (
                         <img
-                          src={item.mainImage}
+                          src={
+                            fixGoogleDriveUrl(item.mainImage) ||
+                            "/images/error.png"
+                          }
                           alt={item.productName}
                           width={70}
                           height={70}

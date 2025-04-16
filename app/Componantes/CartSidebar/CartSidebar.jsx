@@ -1,11 +1,12 @@
 // CartSidebar.jsx
 import { useState, useEffect } from "react";
 import styles from "./cartSidebar.module.css";
+import { getToken } from "/Lib/auth";
 
 const CartSidebar = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const token = getToken();
   // handle images
   const fixGoogleDriveUrl = (url) => {
     if (url.includes("drive.google.com") && url.includes("open?id=")) {
@@ -21,11 +22,6 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
   // Extract cartId from token in cookies
   const getCartId = () => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1];
-
     if (!token) return null;
 
     try {
