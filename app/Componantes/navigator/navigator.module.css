@@ -72,11 +72,12 @@
 .navIcons {
   display: flex;
   align-items: center;
+  stroke: var(--primary);
 }
 
-.iconHover:hover {
-  background-color: var(--secondary);
-  border-radius: 50%;
+.iconHover svg:hover {
+  fill: var(--secondary);
+  stroke: var(--secondary);
 }
 
 /* .notification {

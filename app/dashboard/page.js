@@ -26,6 +26,7 @@ import SubCategoryManager from "./subCategoryManager/subCategoryManager";
 import BrandManager from "./brandManager/brandManager";
 import OrderManager from "./orderManager/orderManager";
 import InvoiceManager from "./invoiceManager/invoiceManager";
+import ProductManager from "./ProductManager/ProductManager";
 import styles from "./dashboard.module.css";
 import Sidebar from "./sidebar/sidebar";
 import Link from "next/link";
@@ -43,6 +44,7 @@ export default function DashboardPage() {
     { id: "brands", label: "Brand Manager" },
     { id: "orders", label: "Order Manager" },
     { id: "invoices", label: "Invoice Manager" },
+    { id: "products", label: "Product Manager" },
   ];
 
   // Check if on mobile screen
@@ -84,6 +86,8 @@ export default function DashboardPage() {
         return <OrderManager />;
       case "invoices":
         return <InvoiceManager />;
+      case "products":
+        return <ProductManager />;
       case "welcome":
       default:
         return (
@@ -126,7 +130,8 @@ export default function DashboardPage() {
             </div>
           )}
           <h1>Admin Dashboard</h1>
-          <button className={styles.backButton}
+          <button
+            className={styles.backButton}
             style={{
               backgroundColor: "#1a1a2e",
               border: "none",

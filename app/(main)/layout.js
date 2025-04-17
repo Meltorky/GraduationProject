@@ -12,7 +12,7 @@ export default function MainLayout({ children }) {
         <Navigator />
       </header>
       {children}
-      <Footer />
+        <Footer />
     </div>
   );
 }

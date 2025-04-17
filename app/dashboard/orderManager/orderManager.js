@@ -272,6 +272,8 @@ export default function OrderManager() {
         <div className={styles.error}>Error: {error}</div>
       ) : (
         <>
+          {renderPagination()}
+          <br />
           <div className={styles.ordersTable}>
             <div className={styles.tableHeader}>
               <div className={styles.headerCell}>Order #</div>

@@ -177,6 +177,25 @@ export default function ProfilePage() {
 
   const token = getToken();
 
+  // if admin, disable the buttom
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log("Decoded token:", decoded);
+        if (decoded.role === "Admin") {
+          setIsAdmin(true);
+          console.log("Admin role detected:", decoded.role);
+        }
+      } catch (err) {
+        console.error("Error decoding token:", err);
+      }
+    } else {
+      console.log("No token found.");
+    }
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       if (!token) router.push("/login"); // Redirect to the home page
@@ -424,6 +443,8 @@ export default function ProfilePage() {
           onClick={handleDeleteAccount}
           className={styles.button}
           style={{ backgroundColor: "var(--accent)" }}
+          hidden={isAdmin}
+          alert={isAdmin ? "Admin cannot delete their account" : ""}
         >
           Delete Account
         </button>

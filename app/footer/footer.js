@@ -10,6 +10,7 @@ export default function Footer() {
       <div className={styles.footerContent}>
         <div className={styles.footerSection}>
           <div className={styles.companyInfo}>
+            {/* <h2 className={styles.footerLogo}>YourCompany</h2> */}
             <div className={styles.logo}>
               <Link href="/">
                 <img src="/images/freshCartLogo.png" alt="FreshCart Logo" />
@@ -108,30 +109,86 @@ export default function Footer() {
             <h3 className={styles.columnTitle}>Company</h3>
             <ul className={styles.footerLinks}>
               <li>
-                <Link href="/register">Register</Link>
+                <Link href="/about">About Us</Link>
               </li>
               <li>
-                <Link href="/login">Login</Link>
+                <Link href="/team">Our Team</Link>
               </li>
               <li>
-                <Link href="/products">Products</Link>
+                <Link href="/careers">Careers</Link>
               </li>
               <li>
-                <Link href="/profile">Profile</Link>
+                <Link href="/contact">Contact Us</Link>
               </li>
             </ul>
           </div>
-        </div>
-        <div className={styles.footerBottom}>
-          <div className={styles.footerBottomContent}>
-            <p className={styles.copyright}>
-              © {currentYear} M.Eltory. All rights reserved.
+
+          <div className={styles.footerColumn}>
+            <h3 className={styles.columnTitle}>Services</h3>
+            <ul className={styles.footerLinks}>
+              <li>
+                <Link href="/services/web-development">Web Development</Link>
+              </li>
+              <li>
+                <Link href="/services/app-development">App Development</Link>
+              </li>
+              <li>
+                <Link href="/services/ui-design">UI/UX Design</Link>
+              </li>
+              <li>
+                <Link href="/services/consulting">Consulting</Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className={styles.footerColumn}>
+            <h3 className={styles.columnTitle}>Resources</h3>
+            <ul className={styles.footerLinks}>
+              <li>
+                <Link href="/blog">Blog</Link>
+              </li>
+              <li>
+                <Link href="/resources/guides">Guides</Link>
+              </li>
+              <li>
+                <Link href="/faq">FAQ</Link>
+              </li>
+              <li>
+                <Link href="/support">Support</Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className={`${styles.footerColumn} ${styles.newsletterColumn}`}>
+            <h3 className={styles.columnTitle}>Subscribe to our Newsletter</h3>
+            <p className={styles.newsletterText}>
+              Stay updated with our latest news and offers
             </p>
-            <div className={styles.legalLinks}>
-              <Link href="/contactus">Contact</Link>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/about">About</Link>
-            </div>
+            <form className={styles.newsletterForm}>
+              <input
+                type="email"
+                placeholder="Your email address"
+                className={styles.newsletterInput}
+                aria-label="Email for newsletter"
+                required
+              />
+              <button type="submit" className={styles.newsletterButton}>
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.footerBottom}>
+        <div className={styles.footerBottomContent}>
+          <p className={styles.copyright}>
+            © {currentYear} YourCompany. All rights reserved.
+          </p>
+          <div className={styles.legalLinks}>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-of-service">Terms of Service</Link>
+            <Link href="/cookie-policy">Cookie Policy</Link>
           </div>
         </div>
       </div>

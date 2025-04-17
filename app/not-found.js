@@ -52,11 +52,11 @@ export default function NotFound() {
               backgroundColor: "var(--black)",
               marginInlineStart: "-0.5px",
             }}
-            href="/register"
+            href="/contactus"
           >
             Contact Us
           </Link>
-          <Link style={styles.signinButton} href="http://localhost:3000">
+          <Link style={styles.signinButton} href="/">
             Back Home
           </Link>
         </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./banner.module.css"; // Create Banner.module.css
-
+import Link from "next/link";
 export const Banner = ({ interval = 2000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -25,11 +25,14 @@ export const Banner = ({ interval = 2000 }) => {
         </h2>
         <h2>to your doorstep</h2>
         <p>
-          Get the freshest groceries delivered to your home, Save time, Keep calm, Skip the
-          lines. and enjoy the commerance of quick, effective delivery.
+          Get the freshest groceries delivered to your home, Save time, Keep
+          calm, Skip the lines. and enjoy the commerance of quick, effective
+          delivery.
           <br />
         </p>
-        <button className={styles["banner-button"]}>Show Now</button>
+        <button className={styles["banner-button"]}>
+          <Link href={"/products"}>Show Now</Link>
+        </button>
       </div>
       {images.map((image, index) => (
         <img

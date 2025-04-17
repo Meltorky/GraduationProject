@@ -343,7 +343,7 @@ export const PopularProducts = () => {
             const rawUrl = hasPhotos ? product.photos[0].imageURL : null;
             const photoUrl = hasPhotos
               ? fixGoogleDriveUrl(rawUrl)
-              : "/images/defaultimage.png";
+              : "/images/error.png";
 
             return (
               <div key={index} className={styles.productCard}>
@@ -393,7 +393,7 @@ export const PopularProducts = () => {
                   >
                     Buy
                   </button>
-                  <p className={styles.price}>{product.price} EGP</p>
+                  <p className={styles.price}>EGP {product.price}</p>
                 </div>
               </div>
             );

@@ -1,13 +1,12 @@
-"use client"
 // app/contact/page.js
 import React from "react";
 import ContactForm from "./ContactForm";
 import styles from "./contactus.module.css";
 
-// export const metadata = {
-//   title: "Contact Us | Your Company",
-//   description: "Get in touch with our team for any questions or inquiries",
-// };
+export const metadata = {
+  title: "Contact Us | Your Company",
+  description: "Get in touch with our team for any questions or inquiries",
+};
 
 export default function ContactPage() {
   return (

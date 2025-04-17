@@ -338,6 +338,8 @@ export default function InvoiceManager() {
         <div className={styles.error}>Error: {error}</div>
       ) : (
         <>
+          {renderPagination()}
+          <br/>
           <div className={styles.invoicesTable}>
             <div className={styles.tableHeader}>
               <div className={styles.headerCell}>Invoice #</div>
