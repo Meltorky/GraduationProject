@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./order.module.css";
 import { getToken } from "/lib/auth"; // Adjust the import path as necessary
+import Link from "next/link";
 
 export default function OrderDetailsPage({ params }) {
   const router = useRouter();
@@ -101,8 +102,8 @@ export default function OrderDetailsPage({ params }) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <button className={styles.backButton} onClick={() => router.back()}>
-          ← Back to Orders
+        <button className={styles.backButton}>
+          <Link href={"/invoice"}>← Back to Orders</Link>
         </button>
         <h1 className={styles.title}>Order Details</h1>
       </div>

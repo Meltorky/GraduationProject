@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loader {
+  margin-top: 2rem;
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.status {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.loader {
+  margin-top: 1rem;
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.debugSection {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 800px;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+
+.toggleButton {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0.5rem 0;
+}
+
+.logs {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: left;
+  font-family: monospace;
+  display: none;
+}
+
+.showLogs {
+  display: block;
+}
+
+.logEntry {
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -10,51 +10,38 @@ export default function OrderManager() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(5); // Default to 5 pages initially
+  const [totalPages, setTotalPages] = useState(5); // Default to 5 pages initially (can adjust based on API response)
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredOrders, setFilteredOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showOrderDetails, setShowOrderDetails] = useState(false);
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const token = getToken();
 
-  // Debounce search term to avoid too many API calls
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+    fetchOrders(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
-    fetchOrders(currentPage, debouncedSearchTerm);
-  }, [currentPage, debouncedSearchTerm]);
+    if (orders.length > 0) {
+      const filtered = orders.filter((order) =>
+        order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredOrders(filtered);
+    }
+  }, [searchTerm, orders]);
 
-  const fetchOrders = async (pageNum, search) => {
+  const fetchOrders = async (pageNum) => {
     setLoading(true);
     try {
-      // Add search parameter to API URL
-      const url = new URL(
-        `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Order/get-all-orders`
+      const response = await fetch(
+        `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Order/get-all-orders?pagenum=${pageNum}&Maxpagesize=50&pagesize=50`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
-
-      // Add query parameters
-      url.searchParams.append("pagenum", pageNum);
-      url.searchParams.append("Maxpagesize", 50);
-      url.searchParams.append("pagesize", 50);
-      url.searchParams.append("sort", "OrderDateDesc");
-
-      // Add search parameter if there's a search term
-      if (search) {
-        url.searchParams.append("search", search);
-      }
-
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch orders");
@@ -62,16 +49,13 @@ export default function OrderManager() {
 
       const data = await response.json();
       setOrders(data);
+      setFilteredOrders(data);
 
       // Since the API might not return total pages info,
       // we'll assume there are more pages if we get a full page of results
       if (data.length === 50) {
         // There are likely more pages
         setTotalPages(Math.max(totalPages, currentPage + 1));
-      } else if (data.length === 0 && currentPage > 1) {
-        // If we get no data and we're not on the first page,
-        // we've gone past the available pages
-        setTotalPages(currentPage - 1);
       }
     } catch (err) {
       setError(err.message);
@@ -82,10 +66,6 @@ export default function OrderManager() {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    // Reset to first page when searching
-    if (currentPage !== 1) {
-      setCurrentPage(1);
-    }
   };
 
   const handlePageChange = (pageNum) => {
@@ -305,8 +285,8 @@ export default function OrderManager() {
               <div className={styles.headerCell}>Actions</div>
             </div>
 
-            {orders.length > 0 ? (
-              orders.map((order) => (
+            {filteredOrders.length > 0 ? (
+              filteredOrders.map((order) => (
                 <div key={order.orderNumber} className={styles.orderRow}>
                   <div className={styles.cell}>{order.orderNumber}</div>
                   <div className={styles.cell}>

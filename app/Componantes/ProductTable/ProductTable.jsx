@@ -518,13 +518,18 @@ const ProductTable = ({ products }) => {
                   >
                     {product.name || "Unnamed Product"}
                   </h3>
-                  <div className={styles.productBrand}>
-                    {product.brandName || "No brand"}
+                  <div className={styles.rating}>
+                    {product.rating === null
+                      ? "no rating yet "
+                      : product.rating}
+                    <span className={styles.star}>★</span>
+                  </div>
+                  <div>
+                    <span className={styles.sold}>
+                      {Math.abs(product.stockQuantity)} sold
+                    </span>
                   </div>
                   <div className={styles.productActions}>
-                    <div className={styles.productPrice}>
-                      EGP {product.price || "0"}
-                    </div>
                     <button
                       className={styles.addButton}
                       // onClick={() =>
@@ -539,6 +544,9 @@ const ProductTable = ({ products }) => {
                     >
                       Buy
                     </button>
+                    <div className={styles.productPrice}>
+                      EGP {product.price || "0"}
+                    </div>
                   </div>
                 </div>
               </div>

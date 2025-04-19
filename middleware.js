@@ -66,15 +66,10 @@ export function middleware(request) {
 
 // Configure middleware to run on these routes
 export const config = {
-  matcher: [
-    "/dashboard",
-    // "/dashboard/:path*",
-    "/admin",
-    "/profile1",
-    "/login",
-  ],
+  matcher: ["/dashboard", "/dashboard/:path*", "/admin", "/profile1", "/login"],
 };
 
 // lefew35865@clubemp.com
 // besecab627@anlocc.com
 // revahi6260@clubemp.com   //++
+// yebiv18346@cxnlab.com

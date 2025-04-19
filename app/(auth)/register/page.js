@@ -21,12 +21,41 @@ export default function RegisterPage() {
   const [step, setStep] = useState("register"); // or "activate"
   const [code, setCode] = useState("");
 
+  const [passwordError, setPasswordError] = useState("");
+  const validatePassword = (password) =>
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password);
+
+  // const handleChange = (e) => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // };
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // update form state
+    setForm((prev) => ({ ...prev, [name]: value }));
+
+    // validate password
+    if (name === "password") {
+      if (!validatePassword(value)) {
+        setPasswordError(
+          "Password must be at least 8 characters, include uppercase, lowercase, number, and special character."
+        );
+      } else {
+        setPasswordError("");
+      }
+    }
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (!validatePassword(form.password)) {
+      setPasswordError(
+        "Password must be at least 8 characters, include uppercase, lowercase, number, and special character."
+      );
+      return;
+    }
 
     const res = await fetch(
       "https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Account/register",
@@ -134,6 +163,17 @@ export default function RegisterPage() {
                   name="password"
                   onChange={handleChange}
                 />
+                {passwordError && (
+                  <p
+                    style={{
+                      color: "red",
+                      fontSize: "1rem",
+                      marginTop: "1rem",
+                    }}
+                  >
+                    {passwordError}
+                  </p>
+                )}
                 <input
                   type="date"
                   placeholder="Date Of Birth"

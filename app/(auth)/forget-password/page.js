@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "../auth.module.css";
 
 export default function ForgetPasswordPage() {
   const [email, setEmail] = useState("");
@@ -20,20 +21,19 @@ export default function ForgetPasswordPage() {
 
       setMessage("Reset code sent to your email.");
       // setTimeout(() => router.push("/reset-password"), 2000); // Navigate after a delay
-    setTimeout(
-      () => router.push(`/reset-password?email=${encodeURIComponent(email)}`),
-      2000
-    );
-
+      setTimeout(
+        () => router.push(`/reset-password?email=${encodeURIComponent(email)}`),
+        2000
+      );
     } catch (err) {
       console.error(err);
-      setMessage("Failed to send reset email.");
+      setMessage("Email is incorrect !!.");
     }
   };
 
   return (
-    <div>
-      <h1>Forget Password</h1>
+    <div style={{ maxWidth: "500px" }}>
+      <h1 style={{ marginBlock: "1rem" }}>Forget Password</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -41,10 +41,17 @@ export default function ForgetPasswordPage() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className={styles.formInput}
         />
-        <button type="submit">Send Reset Code</button>
+        <button type="submit" className={styles.signinButton}>
+          Send Reset Code
+        </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && (
+        <p style={{ marginTop: "3rem", fontSize: "2rem", color: "red" }}>
+          {message}
+        </p>
+      )}
     </div>
   );
 }

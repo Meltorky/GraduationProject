@@ -45,11 +45,12 @@ const SingleProductPage = () => {
     // Your wishlist API call logic here
     const addToWishlist = async () => {
       const cartId = getCartId();
-      console.log("Adding to cart with ID:", cartId); //  Check this output
+      const cartIdw = cartId + "w"; // Assuming you have a way to get the wishlist ID
+      console.log("Adding to wish with ID:", cartIdw); //  Check this output
 
       try {
         const response = await fetch(
-          `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Wishlist/add-to-wishlist?wishlistId=${cartId}`,
+          `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Wishlist/add-to-wishlist?wishlistId=${cartIdw}`,
           {
             method: "POST",
             headers: {

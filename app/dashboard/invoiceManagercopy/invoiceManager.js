@@ -12,49 +12,40 @@ export default function InvoiceManager() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(5); // Default to 5 pages initially
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [filteredInvoices, setFilteredInvoices] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [showInvoiceDetails, setShowInvoiceDetails] = useState(false);
   const token = getToken();
 
-  // Debounce search term to avoid too many API calls
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+    fetchInvoices(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
-    fetchInvoices(currentPage, debouncedSearchTerm);
-  }, [currentPage, debouncedSearchTerm]);
+    if (invoices.length > 0) {
+      const filtered = invoices.filter(
+        (invoice) =>
+          invoice.orderNumber
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          invoice.invoiceID.toString().includes(searchTerm)
+      );
+      setFilteredInvoices(filtered);
+    }
+  }, [searchTerm, invoices]);
 
-  const fetchInvoices = async (pageNum, search) => {
+  const fetchInvoices = async (pageNum) => {
     setLoading(true);
     try {
-      // Add search parameter to API URL
-      const url = new URL(
-        `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Invoice/get-all-invoices`
+      const response = await fetch(
+        `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Invoice/get-all-invoices?pagenum=${pageNum}&Maxpagesize=50&pagesize=50`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
-
-      // Add query parameters
-      url.searchParams.append("pagenum", pageNum);
-      url.searchParams.append("Maxpagesize", 50);
-      url.searchParams.append("pagesize", 50);
-      url.searchParams.append("sort", "InvoiceDateDesc");
-
-      // Add search parameter if there's a search term
-      if (search) {
-        url.searchParams.append("search", search);
-      }
-
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch invoices");
@@ -62,14 +53,11 @@ export default function InvoiceManager() {
 
       const data = await response.json();
       setInvoices(data);
+      setFilteredInvoices(data);
 
       // If we get a full page of results, assume there are more pages
       if (data.length === 50) {
         setTotalPages(Math.max(totalPages, currentPage + 1));
-      } else if (data.length === 0 && currentPage > 1) {
-        // If we get no data and we're not on the first page,
-        // we've gone past the available pages
-        setTotalPages(currentPage - 1);
       }
     } catch (err) {
       setError(err.message);
@@ -80,10 +68,6 @@ export default function InvoiceManager() {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    // Reset to first page when searching
-    if (currentPage !== 1) {
-      setCurrentPage(1);
-    }
   };
 
   const handlePageChange = (pageNum) => {
@@ -355,7 +339,7 @@ export default function InvoiceManager() {
       ) : (
         <>
           {renderPagination()}
-          <br />
+          <br/>
           <div className={styles.invoicesTable}>
             <div className={styles.tableHeader}>
               <div className={styles.headerCell}>Invoice #</div>
@@ -368,8 +352,8 @@ export default function InvoiceManager() {
               <div className={styles.headerCell}>Actions</div>
             </div>
 
-            {invoices.length > 0 ? (
-              invoices.map((invoice) => (
+            {filteredInvoices.length > 0 ? (
+              filteredInvoices.map((invoice) => (
                 <div key={invoice.invoiceID} className={styles.invoiceRow}>
                   <div className={styles.cell}>{invoice.invoiceID}</div>
                   <div className={styles.cell}>{invoice.orderNumber}</div>

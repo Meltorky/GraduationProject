@@ -174,4 +174,5 @@
   align-items: center;
   margin: 15px auto;
   padding: 0 60px; /* Add padding for smaller screens */
+  margin-bottom: 30px;
 }

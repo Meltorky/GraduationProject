@@ -1,5 +1,4 @@
- 
- .productTableContainer {
+.productTableContainer {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
@@ -112,7 +111,7 @@
   transform: translateY(-4px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      border-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .imageContainer {
@@ -149,13 +148,12 @@
 }
 
 .productName {
-  font-weight: 700;
-  font-size: 1.125rem;
+  font-size: 1.2em;
+  font-weight: bold;
   margin-bottom: 0.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #111827;
+  color: var(--foreground);
+  display: flex;
+  justify-content: end;
 }
 
 .productBrand {
@@ -175,11 +173,11 @@
 .productPrice {
   font-weight: 700;
   font-size: 1.125rem;
-  color: var(--gray);
+  color: var(--primary);
 }
 
 .addButton {
-  background-color :var(--primary);
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 4px;
@@ -232,4 +230,26 @@
   border-color: var(--primary);
 }
 
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  font-size: 1em;
+  color: var(--secondary); /* Orange color for stars */
+  margin-top: 7px;
+  margin-right: -2px;
+}
 
+.star {
+  margin-left: 2px;
+  padding-bottom: 5px;
+}
+
+.sold {
+  font-size: 0.8em;
+  color: var(--gray);
+  margin-block: 5px;
+  display: flex;
+  justify-content: end;
+  margin-right: -0.1px;
+}

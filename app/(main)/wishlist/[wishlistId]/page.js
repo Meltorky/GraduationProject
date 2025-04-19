@@ -43,11 +43,12 @@ export default function WishlistPage() {
   useEffect(() => {
     const fetchWishlist = async () => {
       const cartId = getCartId();
-      console.log("cartId", cartId);
+      const cartIdw = cartId + "w";
+      console.log("cartId", cartIdw);
       try {
         setIsLoading(true);
         const response = await fetch(
-          `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Wishlist/get-wishlist-by-id/${cartId}`
+          `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Wishlist/get-wishlist-by-id/${cartIdw}`
         );
 
         if (!response.ok) {
@@ -70,9 +71,11 @@ export default function WishlistPage() {
 
   const removeFromWishlist = async (productId) => {
     const cartId = getCartId();
+    const cartIdw = cartId + "w";
+    console.log("cartId", cartIdw);
     try {
       const response = await fetch(
-        `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Wishlist/remove-item-from-wishlist?wishlistId=${cartId}&productId=${productId}`,
+        `https://ecommerceapi-dve9edbbasgxbfg9.uaenorth-01.azurewebsites.net/Wishlist/remove-item-from-wishlist?wishlistId=${cartIdw}&productId=${productId}`,
         {
           method: "DELETE",
           headers: {
