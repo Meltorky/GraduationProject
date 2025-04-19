@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import styles from "./single-product.module.css";
-import { getToken } from "/lib/auth";
+import { getToken } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import ProductReviews from "./productReviews"; // Adjust path as needed
 import CartSidebar from "../../../Componantes/CartSidebar/CartSidebar"; // Adjust path as needed

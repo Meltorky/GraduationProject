@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
-import { login } from "/lib/auth";
+import { login } from "@/lib/auth";
 import { useAuth } from "/app/Componantes/AuthProvider";
 import { setToken } from "/lib/auth"; // Import your setToken method
 

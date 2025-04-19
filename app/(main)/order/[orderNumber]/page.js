@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./order.module.css";
-import { getToken } from "/lib/auth"; // Adjust the import path as necessary
+import { getToken } from "@/lib/auth"; // Adjust the import path as necessary
 import Link from "next/link";
 
 export default function OrderDetailsPage({ params }) {

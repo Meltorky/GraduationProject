@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./payment-callback.module.css";
-import { getToken } from "/lib/auth"; // Adjust the import path as necessary
+import { getToken } from "@/lib/auth"; // Adjust the import path as necessary
 
 export default function PaymentCallback() {
   const [status, setStatus] = useState("Processing payment result...");

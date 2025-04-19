@@ -1,6 +1,6 @@
 // app/payment/[id]/paymentService.js
 
-import { getToken } from "/lib/auth"; // Adjust the import path as necessary
+import { getToken } from "@/lib/auth"; // Adjust the import path as necessary
 
 export async function initiatePayment(id) {
   const token = getToken(); // Using your existing getToken method
