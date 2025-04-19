@@ -9,7 +9,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
-import { getToken } from "/Lib/auth"; // Adjust the import path as necessary
+import { getToken } from "@/lib/auth"; // Adjust the import path as necessary
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 export const Navigator = () => {

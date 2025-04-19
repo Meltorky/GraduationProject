@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./OrderManager.module.css";
-import { getToken } from "/Lib/auth";
+import { getToken } from "@/lib/auth";
 
 export default function OrderManager() {
   const [orders, setOrders] = useState([]);

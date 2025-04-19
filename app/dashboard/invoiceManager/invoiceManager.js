@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./InvoiceManager.module.css";
-import { getToken } from "/Lib/auth";
+import { getToken } from "@/lib/auth";
 
 export default function InvoiceManager() {
   const [invoices, setInvoices] = useState([]);
