@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./wishlist.module.css";
 import { useParams } from "next/navigation";
-import { getToken } from "/Lib/auth"; // Adjust the import path as necessary
+import { getToken } from "@/lib/auth"; // Adjust the import path as necessary
 
 const fixGoogleDriveUrl = (url) => {
   if (url.includes("drive.google.com") && url.includes("open?id=")) {

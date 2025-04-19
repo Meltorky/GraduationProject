@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./Invoice.module.css";
-import { getToken } from "/Lib/auth"; // Adjust the import path based on your project structure
+import { getToken } from "@/lib/auth"; // Adjust the import path based on your project structure
 import { useRouter } from "next/navigation";
 
 export default function InvoicePage() {

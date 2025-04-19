@@ -1,7 +1,7 @@
 // CartSidebar.jsx
 import { useState, useEffect } from "react";
-import styles from "./cartSidebar.module.css";
-import { getToken } from "/Lib/auth";
+import styles from "./CartSidebar.module.css";
+import { getToken } from "@/lib/auth";
 
 const CartSidebar = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);

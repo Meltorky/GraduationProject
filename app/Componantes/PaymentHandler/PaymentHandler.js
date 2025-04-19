@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getToken } from "/Lib/auth";
+import { getToken } from "@/lib/auth";
 
 export default function PaymentHandler({ orderNumber }) {
   const token = getToken();
