@@ -1,20 +1,37 @@
 // "use client";
-// import { useState, useEffect } from "react";
+// import { useState } from "react";
 // import { useRouter, useSearchParams } from "next/navigation";
+// import styles from "../auth.module.css";
 
 // export default function ResetPasswordPage() {
-// //   const [email, setEmail] = useState("");
 //   const [code, setCode] = useState("");
 //   const [password, setPassword] = useState("");
 //   const [message, setMessage] = useState("");
-//   const router = useRouter();
+//   const [passwordError, setPasswordError] = useState("");
 
+//   const router = useRouter();
 //   const searchParams = useSearchParams();
 //   const defaultEmail = searchParams.get("email") || "";
 //   const [email, setEmail] = useState(defaultEmail);
 
+//   const validatePassword = (password) => {
+//     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+//     return passwordRegex.test(password);
+//   };
+
 //   const handleReset = async (e) => {
 //     e.preventDefault();
+
+//     // Validate password before sending
+//     if (!validatePassword(password)) {
+//       setPasswordError(
+//         "Password must be at least 8 characters, with uppercase, lowercase, number, and special character."
+//       );
+//       return;
+//     } else {
+//       setPasswordError("");
+//     }
+
 //     setMessage("Resetting password...");
 
 //     try {
@@ -40,8 +57,8 @@
 //   };
 
 //   return (
-//     <div>
-//       <h1>Reset Password</h1>
+//     <div style={{ maxWidth: "500px" }}>
+//       <h1 style={{ marginBlock: "1rem" }}>Reset Password</h1>
 //       <form onSubmit={handleReset}>
 //         <input
 //           type="email"
@@ -49,7 +66,7 @@
 //           required
 //           value={email}
 //           disabled
-//           onChange={(e) => setEmail(e.target.value)}
+//           className={styles.formInput}
 //         />
 //         <input
 //           type="text"
@@ -57,6 +74,7 @@
 //           required
 //           value={code}
 //           onChange={(e) => setCode(e.target.value)}
+//           className={styles.formInput}
 //         />
 //         <input
 //           type="password"
@@ -64,8 +82,16 @@
 //           required
 //           value={password}
 //           onChange={(e) => setPassword(e.target.value)}
+//           className={styles.formInput}
 //         />
-//         <button type="submit">Reset Password</button>
+//         {passwordError && (
+//           <p style={{ color: "red", fontSize: "1rem", marginTop: "2rem" }}>
+//             {passwordError}
+//           </p>
+//         )}
+//         <button type="submit" className={styles.signinButton}>
+//           Reset Password
+//         </button>
 //       </form>
 //       {message && <p>{message}</p>}
 //     </div>
@@ -75,9 +101,11 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import styles from "../auth.module.css";
 
-export default function ResetPasswordPage() {
+// Component that uses useSearchParams
+function ResetPasswordContent() {
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -169,5 +197,20 @@ export default function ResetPasswordPage() {
       </form>
       {message && <p>{message}</p>}
     </div>
+  );
+}
+
+// Main page component with Suspense boundary
+export default function ResetPasswordPage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ maxWidth: "500px" }}>
+          <h1 style={{ marginBlock: "1rem" }}>Loading Reset Password...</h1>
+        </div>
+      }
+    >
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
