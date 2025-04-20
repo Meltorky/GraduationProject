@@ -12,7 +12,7 @@ export default function Footer() {
           <div className={styles.companyInfo}>
             <div className={styles.logo}>
               <Link href="/">
-                <img src="/images/freshCartLogo.png" alt="FreshCart Logo" />
+                <img src="/images/freshcartLogo.png" alt="FreshCart Logo" />
               </Link>
             </div>{" "}
             <p className={styles.footerTagline}>
