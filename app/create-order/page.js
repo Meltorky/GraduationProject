@@ -525,10 +525,10 @@ function CreateOrderContent() {
             </select>
             <div style={{ marginBlock: "10px" }}>
               <h3 style={{ color: "var(--accent)", fontSize: ".9rem" }}>
-                For Express : Delivery after 4 days for EGP 20
+                For Express : Delivery after 2 days for EGP 40
               </h3>
               <h3 style={{ color: "var(--accent)", fontSize: ".9rem" }}>
-                For Standard : Delivery after 2 days for EGP 40
+                For Standard : Delivery after 4 days for EGP 20
               </h3>
             </div>
           </div>
