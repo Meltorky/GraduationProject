@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getToken } from "@/lib/auth";
-
+import styles from "./PaymentHandler.module.css"; // Adjust the path as necessary
 export default function PaymentHandler({ orderNumber }) {
   const token = getToken();
   const [pollingStarted, setPollingStarted] = useState(false);
@@ -40,7 +40,7 @@ export default function PaymentHandler({ orderNumber }) {
     <div>
       <button
         onClick={startPayment}
-        style={{ marginBlock: "1rem", padding: "1rem" , fontWeight:"bolder", backgroundColor:"var(--primary)", color:"white", border:"none", borderRadius:"5px"}}
+        className={styles.paynowButton}
       >
         Pay Now
       </button>

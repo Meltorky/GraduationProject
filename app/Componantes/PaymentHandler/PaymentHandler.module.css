@@ -1,0 +1,14 @@
+.paynowButton{
+    margin-top: 1rem;
+    padding: 1rem;
+    font-weight: bolder;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.paynowButton:hover{
+    background-color: var(--secondary);
+}

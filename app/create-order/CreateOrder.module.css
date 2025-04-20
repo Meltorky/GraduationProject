@@ -196,6 +196,23 @@
   color: #666;
 }
 
+
+
+.redirectButton{
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+.redirectButton:hover {
+  background-color: var(--secondary);
+}
 /* Responsive styles */
 @media (max-width: 600px) {
   .container {
