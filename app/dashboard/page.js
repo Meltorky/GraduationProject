@@ -102,8 +102,8 @@ export default function DashboardPage() {
                     height="1000" 
                     src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2MzQyYzctNjVlNC00MzI3LWI5MDctN2FmMjg5MWUwNjNkIiwidCI6ImVhZjYyNGM4LWEwYzQtNDE5NS04N2QyLTQ0M2U1ZDc1MTZjZCIsImMiOjh9" 
                     frameBorder="0" 
-                    allowFullScreen
-                />
+                    allowFullScreen={true}
+                ></iframe>
             </div>
         );
     }
