@@ -95,7 +95,7 @@ export default function DashboardPage() {
                 <iframe 
                     title="Dashboard"
                     width="100%" 
-                    height="750" 
+                    height="700" 
                     src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2MzQyYzctNjVlNC00MzI3LWI5MDctN2FmMjg5MWUwNjNkIiwidCI6ImVhZjYyNGM4LWEwYzQtNDE5NS04N2QyLTQ0M2U1ZDc1MTZjZCIsImMiOjh9" 
                     frameBorder="0" 
                     allowFullScreen={true}
