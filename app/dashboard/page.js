@@ -95,6 +95,9 @@ export default function DashboardPage() {
             <h2>Welcome to Admin Dashboard!</h2>
             <p>Select an option from the menu to manage your content.</p>
           </div>
+            <div className={styles.welcomeContainer}>
+<iframe title="DashBoard" width="1024" height="1060" src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2MzQyYzctNjVlNC00MzI3LWI5MDctN2FmMjg5MWUwNjNkIiwidCI6ImVhZjYyNGM4LWEwYzQtNDE5NS04N2QyLTQ0M2U1ZDc1MTZjZCIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+          </div>
         );
     }
   };
