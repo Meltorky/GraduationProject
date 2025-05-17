@@ -96,8 +96,15 @@ export default function DashboardPage() {
             <p>Select an option from the menu to manage your content !!!!.</p>
           </div>
             <div>
-<iframe title="DashBoard" width="1024" height="1060" src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2MzQyYzctNjVlNC00MzI3LWI5MDctN2FmMjg5MWUwNjNkIiwidCI6ImVhZjYyNGM4LWEwYzQtNDE5NS04N2QyLTQ0M2U1ZDc1MTZjZCIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
-          </div>
+                <iframe 
+                    title="Dashboard"
+                    width="100%" 
+                    height="1000" 
+                    src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2MzQyYzctNjVlNC00MzI3LWI5MDctN2FmMjg5MWUwNjNkIiwidCI6ImVhZjYyNGM4LWEwYzQtNDE5NS04N2QyLTQ0M2U1ZDc1MTZjZCIsImMiOjh9" 
+                    frameBorder="0" 
+                    allowFullScreen
+                />
+            </div>
         );
     }
   };
