@@ -92,8 +92,8 @@ export default function DashboardPage() {
       default:
         return (
           <div className={styles.welcomeContainer}>
-            <h2>Welcome to Admin Dashboard!</h2>
-            <p>Select an option from the menu to manage your content !!!!.</p>
+            // <h2>Welcome to Admin Dashboard!</h2>
+            // <p>Select an option from the menu to manage your content !!!!.</p>
                 <iframe 
                     title="Dashboard"
                     width="100%" 
