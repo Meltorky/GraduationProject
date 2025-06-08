@@ -491,13 +491,13 @@ const ProductTable = ({ products }) => {
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-      {/* <div>
+      <div>
         <CascadingSelector
           categoryCode={filters.categoryCode}
           subCategoryCode={filters.subCategoryCode}
           setFilters={setFilters}
         />
-      </div> */}
+      </div>
       <div className={styles.productTableContainer}>
         {/* Search and sort controls */}
         <div className={styles.controlsContainer}>
