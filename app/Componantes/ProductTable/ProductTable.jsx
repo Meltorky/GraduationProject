@@ -143,7 +143,7 @@
 // export default ProductTable;
 
 "use client";
-
+import { Suspense } from "react";
 import { useEffect, useState, useRef } from "react";
 import styles from "./products.module.css";
 import { useRouter } from "next/navigation";

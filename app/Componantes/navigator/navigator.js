@@ -72,9 +72,9 @@ export const Navigator = () => {
       try {
         const decoded = jwtDecode(token);
         console.log("Decoded token:", decoded);
-        if (decoded.role === "Admin" && decoded.role === "Customer") {
+        if (decoded.role === "Admin" || decoded.role === "Customer") {
           setIsUser(true);
-          console.log("Admin role detected:", decoded.role);
+          console.log("role detected:", decoded.role);
         }
       } catch (err) {
         console.error("Error decoding token:", err);
@@ -380,10 +380,10 @@ export const Navigator = () => {
             All Products
           </Link>
           <Link href="/">Home</Link>
-          <Link href="/login" hidden={!isUser}>
+          <Link href="/login" hidden={isUser}>
             Login
           </Link>
-          <Link href="/register" hidden={!isUser}>
+          <Link href="/register" hidden={isUser}>
             Register
           </Link>
           <a onClick={toggleCart}>Cart</a>
