@@ -92,15 +92,15 @@ export default function DashboardPage() {
       default:
         return (
           <div className={styles.welcomeContainer}>
-                <iframe 
-                    title="Dashboard"
-                    width="100%" 
-                    height="700" 
-                    src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2MzQyYzctNjVlNC00MzI3LWI5MDctN2FmMjg5MWUwNjNkIiwidCI6ImVhZjYyNGM4LWEwYzQtNDE5NS04N2QyLTQ0M2U1ZDc1MTZjZCIsImMiOjh9" 
-                    frameBorder="0" 
-                    allowFullScreen={true}
-                ></iframe>
-            </div>
+            <iframe
+              title="Dashboard"
+              width="100%"
+              height="700"
+              src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2MzQyYzctNjVlNC00MzI3LWI5MDctN2FmMjg5MWUwNjNkIiwidCI6ImVhZjYyNGM4LWEwYzQtNDE5NS04N2QyLTQ0M2U1ZDc1MTZjZCIsImMiOjh9"
+              frameBorder="0"
+              allowFullScreen={true}
+            ></iframe>
+          </div>
         );
     }
   };
@@ -135,7 +135,7 @@ export default function DashboardPage() {
               </select>
             </div>
           )}
-          <h1>Admin Dashboard 44</h1>
+          <h1>Admin Dashboard</h1>
           <button
             className={styles.backButton}
             style={{

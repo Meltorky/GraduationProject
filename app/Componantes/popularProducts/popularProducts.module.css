@@ -1,4 +1,4 @@
-.container {
+/* .container {
     padding: 2rem;
     max-width: 1300px;
     margin: 0 auto;
@@ -8,7 +8,6 @@
 .productsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
     margin-top: 2rem;
 }
 
@@ -33,6 +32,7 @@
   transition: transform 0.2s;
   max-height: min-content;
   max-height: 500px;
+  margin-top: 2rem;
 }
 
 .productCard:hover {
@@ -96,7 +96,7 @@
   align-items: center;
   justify-content: end;
   font-size: 1em;
-  color: var(--secondary); /* Orange color for stars */
+  color: var(--secondary);
   margin-top: 7px;
   margin-right: -2px;
 }
@@ -113,4 +113,192 @@
   display: flex; 
   justify-content: end;
   margin-right: -0.1px;
+} */
+
+.container {
+    padding: 2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    margin-top: 2rem;
+}
+
+.loading, .empty {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.productCard {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: transform 0.2s;
+    max-height: min-content;
+    max-height: 500px;
+    margin-top: 2rem;
+}
+
+.productCard:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+}
+
+.productImage {
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    object-fit: contain;
+}
+
+.name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--foreground);
+    display: flex;
+    justify-content: end;
+    text-align: right;
+}
+
+.price {
+    color: var(--primary);
+    font-weight: bold;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: end;
+    text-align: right;
+}
+
+.addButtom {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: -2px;
+}
+
+.addButtom:hover {
+    background-color: var(--secondary);
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.category {
+    font-size: 0.8em;
+    color: var(--gray);
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: end;
+    text-align: right;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-size: 1em;
+    color: var(--secondary);
+    margin-top: 7px;
+    margin-right: -2px;
+}
+
+.star {
+    margin-left: 2px;
+    padding-bottom: 5px;
+}
+
+.sold {
+    font-size: 0.8em;
+    color: var(--gray);
+    margin-block: 5px;
+    display: flex;
+    justify-content: end;
+    text-align: right;
+    margin-right: -0.1px;
+}
+
+/* Media query for small screens (iPhone 14 Pro Max and similar, ≤430px) */
+@media (max-width: 431px) {
+    .container {
+        padding: 0; /* Remove padding to allow full width */
+        margin-top: 20px;
+        width: 100%; /* Ensure container takes full viewport width */
+    }
+
+    .productsGrid {
+        display: grid;
+        grid-template-columns: 1fr; /* Two columns */
+        gap: 0.5rem; /* Reduced gap for tight fit */
+        margin-top: 1rem;
+        justify-items: center; /* Center grid items */
+        width: 100%; /* Ensure full width */
+        margin-left: auto;
+        margin-right: auto; /* Center the grid */
+        padding: 0; /* Remove any padding */
+    }
+
+    .productCard {
+        padding: 0.5rem;
+        max-height: 400px;
+        width:190%; /* Percentage width for centering within grid cell */
+        max-width: 180px; /* Limit maximum width */
+        margin: 0 auto; /* Center each card */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center internal content */
+        margin-top: 1rem;
+    }
+
+    .productImage {
+        height: 120px; /* Reduced height for two cards */
+        margin-bottom: 0.3rem;
+    }
+
+    .name {
+        font-size: 0.9em;
+        justify-content: center; /* Center text */
+        text-align: center;
+    }
+
+    .price {
+        font-size: 0.85em;
+        justify-content: center; /* Center text */
+        text-align: center;
+    }
+
+    .addButtom {
+        padding: 0.25rem 0.5rem; /* Reduced padding for tight fit */
+        font-size: 0.75em;
+    }
+
+    .category {
+        font-size: 0.65em;
+        justify-content: center; /* Center text */
+        text-align: center;
+    }
+
+    .rating {
+        font-size: 0.75em;
+        margin-top: 3px;
+        justify-content: center; /* Center text */
+        text-align: center;
+    }
+
+    .sold {
+        font-size: 0.65em;
+        justify-content: center; /* Center text */
+        text-align: center;
+    }
 }

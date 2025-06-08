@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "../page.module.css";
 import Link from "next/link";
@@ -9,10 +11,22 @@ import { RecommendationsPage } from "../Componantes/recommendedProducts/recommen
 import FeatureHighlights from "../Componantes/FeatureHighlights/FeatureHighlights";
 import BannerButton from "../Componantes/BannerButton/BannerButton";
 
-export default async function Home() {
+export default function Home() {
+  const [showBanner, setShowBanner] = useState(window.innerWidth >= 900);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShowBanner(window.innerWidth >= 900);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <div className={styles.container}>
-      <Banner />
+      {showBanner && <Banner />}
       <RecommendationsPage />
       <PopularProducts />
       <BannerButton href="/products">

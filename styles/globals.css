@@ -85,3 +85,12 @@ a {
     color-scheme: dark;
   }
 } */
+
+@media (max-width: 430px) {
+    .productsGrid {
+        justify-items: center !important;
+    }
+    .productCard {
+        margin: 0 auto !important;
+    }
+}

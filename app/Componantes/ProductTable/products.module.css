@@ -22,6 +22,15 @@
     align-items: center;
   }
 }
+@media (min-width: 430) {
+  .controlsContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+
+  }
+}
 
 .searchContainer {
   display: flex;
@@ -95,6 +104,13 @@
 @media (min-width: 1024px) {
   .productGrid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 430px) {
+  .productGrid {
+    grid-template-columns: repeat(1, 1fr);
+    width: 220px;
   }
 }
 
@@ -236,7 +252,7 @@
   align-items: center;
   justify-content: end;
   font-size: 1em;
-  color: var(--secondary); /* Orange color for stars */
+  color: var(--secondary);
   margin-top: 7px;
   margin-right: -2px;
 }
@@ -255,26 +271,6 @@
   margin-right: -0.1px;
 }
 
-
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-
-/* Add these styles to your existing CSS file */
 
 
 .micButton {
@@ -341,3 +337,7 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+ 
