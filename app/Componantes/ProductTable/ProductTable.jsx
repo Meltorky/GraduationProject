@@ -144,15 +144,17 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "./products.module.css";
 import { useRouter } from "next/navigation";
 import CascadingSelector from "../CascadingSelect/CascadingSelect";
+import { useSearchParams } from "next/navigation";
 
 const ProductTable = ({ products }) => {
   const [sortField, setSortField] = useState("name");
   const [sortDirection, setSortDirection] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
+  const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
@@ -167,6 +169,13 @@ const ProductTable = ({ products }) => {
     categoryCode: "",
     subCategoryCode: "",
   });
+
+  // voiuce research
+  const [searchValue, setSearchValue] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -249,6 +258,14 @@ const ProductTable = ({ products }) => {
       setLoading(false);
     }
   };
+
+  // Add this useEffect BEFORE your existing filtering useEffect
+  useEffect(() => {
+    const searchFromUrl = searchParams.get("search");
+    if (searchFromUrl) {
+      setSearchTerm(searchFromUrl);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (products && products.length && !filters.categoryCode) {
@@ -361,6 +378,117 @@ const ProductTable = ({ products }) => {
     return <div className={styles.errorState}>Error: {error}</div>;
   }
 
+  // Add this function inside your component (before the return statement)
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+
+    // Update URL without causing page reload (optional - remove if you don't want this)
+    const newUrl = value
+      ? `/products?search=${encodeURIComponent(value)}`
+      : "/products";
+    router.replace(newUrl, { scroll: false });
+  };
+
+  // voice search
+  // Convert audio blob to MP3 (using Web Audio API approximation)
+  const convertToMp3 = async (audioBlob) => {
+    // For actual MP3 conversion, you'd typically need a library like lamejs
+    // For now, we'll send the original audio format and let the server handle it
+    // Most modern transcription services accept various audio formats
+    return audioBlob;
+  };
+
+  // Start recording
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: "audio/wav",
+        });
+        await processAudio(audioBlob);
+
+        // Stop all tracks to release microphone
+        stream.getTracks().forEach((track) => track.stop());
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+      alert("Unable to access microphone. Please check permissions.");
+    }
+  };
+
+  // Stop recording
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  // Process audio and send to transcription service
+  const processAudio = async (audioBlob) => {
+    setIsProcessing(true);
+
+    try {
+      // Convert to MP3 (simplified - you may want to use a proper MP3 encoder)
+      const mp3Blob = await convertToMp3(audioBlob);
+
+      // Create FormData to send the file
+      const formData = new FormData();
+      formData.append("file", mp3Blob, "audio.mp3");
+
+      // Send to transcription endpoint
+      const response = await fetch(
+        "https://mohamed-essam0-whisper-fastapi.hf.space/transcribe/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        // Assuming the API returns text in a 'text' field
+        const transcribedText = (
+          result.text ||
+          result.transcription ||
+          ""
+        ).trim();
+        setSearchTerm(transcribedText);
+      } else {
+        console.error("Transcription failed:", response.statusText);
+        alert("Voice transcription failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error processing audio:", error);
+      alert("Error processing voice input. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // Toggle recording
+  const handleMicClick = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <div>
@@ -373,14 +501,80 @@ const ProductTable = ({ products }) => {
       <div className={styles.productTableContainer}>
         {/* Search and sort controls */}
         <div className={styles.controlsContainer}>
+          {/* <div className={styles.searchContainer}>
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            className={styles.searchInput}
+          />
+          </div> */}
+
           <div className={styles.searchContainer}>
             <input
               type="text"
               placeholder="Search products..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              // onKeyPress={handleKeyPress}
+              disabled={isProcessing}
               className={styles.searchInput}
             />
+
+            <button
+              className={`${styles.micButton} ${
+                isRecording ? styles.recording : ""
+              }`}
+              onClick={handleMicClick}
+              disabled={isProcessing}
+              title={isRecording ? "Stop recording" : "Start voice search"}
+            >
+              {isProcessing ? (
+                // Processing spinner
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  className={styles.spinner}
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeDasharray="31.416"
+                    strokeDashoffset="31.416"
+                  >
+                    <animate
+                      attributeName="stroke-dasharray"
+                      dur="2s"
+                      values="0 31.416;15.708 15.708;0 31.416"
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      dur="2s"
+                      values="0;-15.708;-31.416"
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                </svg>
+              ) : (
+                // Microphone icon
+                <svg
+                  width="35"
+                  height="35"
+                  viewBox="0 0 24 24"
+                  fill={isRecording ? "red" : "currentColor"}
+                >
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                  <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+                </svg>
+              )}
+            </button>
           </div>
 
           <div className={styles.sortContainer}>

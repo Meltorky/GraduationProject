@@ -4,12 +4,13 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 2rem;
   color: #1e293b;
 }
 
 .heroSection {
   padding: 6rem 1.5rem;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #0aad0aae 0%, #0aad0a 100%);
   border-radius: 12px;
   margin-bottom: 4rem;
   text-align: center;
@@ -46,13 +47,12 @@
   left: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  background: linear-gradient(135deg, #0aad0aae 0%, #0aad0a 100%);
 }
 
-/* Story Section */
+/* CSS Styles */
 .storySection {
-  padding: 3rem 1.5rem;
-  margin-bottom: 3rem;
+  padding: 4rem 0;
 }
 
 .storyContent {
@@ -60,29 +60,89 @@
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.storyText {
+  flex: 1;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
 }
 
 .storyText p {
-  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
   line-height: 1.7;
-  color: #475569;
+  color: #64748b;
+  margin-bottom: 1.5rem;
 }
 
 .storyImage {
+  flex: 1;
   width: 100%;
   height: 100%;
 }
 
 .imagePlaceholder {
   width: 100%;
-  height: 350px;
   background-color: #f1f5f9;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #94a3b8;
-  font-size: 0.9rem;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.responsiveImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .storyContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .sectionTitle {
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  .storyText {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .storySection {
+    padding: 2rem 0;
+  }
+  
+  .storyContent {
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+  
+  .storyText p {
+    font-size: 1rem;
+  }
+  
+  .imagePlaceholder {
+    border-radius: 8px;
+  }
 }
 
 /* Mission Section */
@@ -127,7 +187,7 @@
   background-color: rgba(99, 102, 241, 0.1);
   border-radius: 50%;
   margin-bottom: 1.5rem;
-  color: #6366f1;
+  color: #0aad0a;
 }
 
 .missionCard h3 {
@@ -199,7 +259,7 @@
 }
 
 .memberRole {
-  color: #6366f1;
+  color: #0aad0a;
   font-weight: 500;
   margin-bottom: 1rem;
 }
@@ -234,7 +294,7 @@
   font-weight: 700;
   color: white;
   margin-bottom: 0.5rem;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  background: linear-gradient(135deg, #0aad0aae 0%, #0aad0a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -247,7 +307,7 @@
 /* CTA Section */
 .ctaSection {
   padding: 4rem 1.5rem;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #0aad0aae 0%, #0aad0a 100%);
   border-radius: 12px;
   margin-bottom: 4rem;
   text-align: center;
@@ -281,7 +341,7 @@
 .primaryButton {
   padding: 0.75rem 2rem;
   background-color: white;
-  color: #6366f1;
+  color: #0aad0a;
   font-weight: 600;
   border-radius: 6px;
   text-decoration: none;

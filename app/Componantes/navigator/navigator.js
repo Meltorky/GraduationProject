@@ -10,9 +10,33 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
 import { getToken } from "@/lib/auth"; // Adjust the import path as necessary
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 export const Navigator = () => {
+  // handle search
+  const [searchValue, setSearchValue] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (searchValue.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchValue.trim())}`);
+    } else {
+      router.push("/products");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  // handle cart sidebar
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Toggle cart sidebar
@@ -42,6 +66,24 @@ export const Navigator = () => {
     }
   }, []);
 
+  const [isUser, setIsUser] = useState(false);
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log("Decoded token:", decoded);
+        if (decoded.role === "Admin" && decoded.role === "Customer") {
+          setIsUser(true);
+          console.log("Admin role detected:", decoded.role);
+        }
+      } catch (err) {
+        console.error("Error decoding token:", err);
+      }
+    } else {
+      console.log("No token found.");
+    }
+  }, []);
+
   const getCartId = () => {
     if (!token) return null;
 
@@ -56,20 +98,118 @@ export const Navigator = () => {
   };
   const cartId = getCartId();
 
+  // handle voice search
+
+  // Convert audio blob to MP3 (using Web Audio API approximation)
+  const convertToMp3 = async (audioBlob) => {
+    // For actual MP3 conversion, you'd typically need a library like lamejs
+    // For now, we'll send the original audio format and let the server handle it
+    // Most modern transcription services accept various audio formats
+    return audioBlob;
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: "audio/wav",
+        });
+        await processAudio(audioBlob);
+
+        // Stop all tracks to release microphone
+        stream.getTracks().forEach((track) => track.stop());
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+      alert("Unable to access microphone. Please check permissions.");
+    }
+  };
+
+  // Stop recording
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  // Process audio and send to transcription service
+  const processAudio = async (audioBlob) => {
+    setIsProcessing(true);
+
+    try {
+      // Convert to MP3 (simplified - you may want to use a proper MP3 encoder)
+      const mp3Blob = await convertToMp3(audioBlob);
+
+      // Create FormData to send the file
+      const formData = new FormData();
+      formData.append("file", mp3Blob, "audio.mp3");
+
+      // Send to transcription endpoint
+      const response = await fetch(
+        "https://mohamed-essam0-whisper-fastapi.hf.space/transcribe/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        // Assuming the API returns text in a 'text' field
+        const transcribedText = result.text || result.transcription || "";
+        setSearchValue(transcribedText);
+      } else {
+        console.error("Transcription failed:", response.statusText);
+        alert("Voice transcription failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error processing audio:", error);
+      alert("Error processing voice input. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // Toggle recording
+  const handleMicClick = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
   return (
     <nav className={styles.navigation}>
       <div className={styles.topBar}>
         <div className={styles.topBarLeft}>
-          <span>£ EGP</span>
-          <Link href="/privacy">
+          <span style={{ pointerEvents: "none", cursor: "default" }}>
+            £ EGP
+          </span>
+          <Link href="/privacy" target="_blank" rel="noopener noreferrer">
             <span>Privacy</span>
           </Link>
         </div>
         <div className={styles.topBarRight}>
-          <Link href="/contactus">
+          <Link href="/contactus" target="_blank" rel="noopener noreferrer">
             <span>Contact Us</span>
           </Link>
-          <Link href="/about">
+          <Link href="/about" target="_blank" rel="noopener noreferrer">
             <span>About</span>
           </Link>
         </div>
@@ -81,10 +221,84 @@ export const Navigator = () => {
             <img src="/images/freshcartLogo.png" alt="FreshCart Logo" />
           </Link>
         </div>
+        {/* <div className={styles.searchBar}>
+          <input
+            type="text"
+            placeholder="Welcome to Smarket"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <button className={styles.searchButton} onClick={handleSearch}>
+            Search
+          </button>
+        </div> */}
         <div className={styles.searchBar}>
-          <input type="text" disabled placeholder="❤ Welcome to Smarket ❤" />
-          <button className={styles.searchButton}>
-            <Link href={"/products"}>Serach</Link>
+          <input
+            type="text"
+            placeholder="Welcome to Smarket"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            // onKeyPress={handleKeyPress}
+            disabled={isProcessing}
+          />
+
+          <button
+            className={`${styles.micButton} ${
+              isRecording ? styles.recording : ""
+            }`}
+            onClick={handleMicClick}
+            disabled={isProcessing}
+            title={isRecording ? "Stop recording" : "Start voice search"}
+          >
+            {isProcessing ? (
+              // Processing spinner
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                className={styles.spinner}
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray="31.416"
+                  strokeDashoffset="31.416"
+                >
+                  <animate
+                    attributeName="stroke-dasharray"
+                    dur="2s"
+                    values="0 31.416;15.708 15.708;0 31.416"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    dur="2s"
+                    values="0;-15.708;-31.416"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </svg>
+            ) : (
+              // Microphone icon
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill={isRecording ? "red" : "currentColor"}
+              >
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+              </svg>
+            )}
+          </button>
+
+          <button className={styles.searchButton} onClick={handleSearch}>
+            Search
           </button>
         </div>
         <div className={styles.navIcons}>
@@ -166,8 +380,12 @@ export const Navigator = () => {
             All Products
           </Link>
           <Link href="/">Home</Link>
-          <Link href="/login">Login</Link>
-          <Link href="/register">Register</Link>
+          <Link href="/login" hidden={!isUser}>
+            Login
+          </Link>
+          <Link href="/register" hidden={!isUser}>
+            Register
+          </Link>
           <a onClick={toggleCart}>Cart</a>
           <Link href="/dashboard" hidden={!isAdmin}>
             Dashboard

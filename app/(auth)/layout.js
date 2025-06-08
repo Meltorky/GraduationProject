@@ -15,9 +15,11 @@ export default function AuthLayout({ children }) {
               <img src="/images/freshcartLogo.png" alt="FreshCart Logo" />
             </Link>
           </div>
-          <div className="auth-links">
-            <span>Already have an account? Sign in</span>
-          </div>
+          {/* <div className="auth-links">
+            <span>Already have an account?           
+              <Link href="/login">Login</Link>
+            </span>
+          </div> */}
         </div>
       </header>
       <AuthProvider>{children}</AuthProvider>

@@ -9,6 +9,7 @@ import ProductReviews from "./productReviews"; // Adjust path as needed
 import CartSidebar from "../../../Componantes/CartSidebar/CartSidebar"; // Adjust path as needed
 import Image from "next/image";
 import Link from "next/link";
+import { RecommendationsPage } from "../../../Componantes/recommendedProducts/recommendedProducts"; // Import the Header component
 
 const SingleProductPage = () => {
   const { productId } = useParams();
@@ -230,7 +231,8 @@ const SingleProductPage = () => {
   const addToCart = async () => {
     const cartId = getCartId();
     if (!cartId) {
-      alert("You need to be logged in to add items to cart");
+      // alert("You need to be logged in to add items to cart");
+      router.push("/login");
       return;
     }
     try {
@@ -527,6 +529,7 @@ const SingleProductPage = () => {
       </div>
       {/* Cart Sidebar */}
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <RecommendationsPage />
     </div>
   );
 };

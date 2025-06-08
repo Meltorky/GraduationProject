@@ -36,8 +36,8 @@ export default function ContactPage() {
               </svg>
             </div>
             <h3>Phone</h3>
-            <p>+1 (555) 123-4567</p>
-            <p>Mon-Fri, 9am-5pm</p>
+            <p>+20 123-4567-890</p>
+            <p>We'll respond within 24 hours</p>
           </div>
 
           <div className={styles.infoCard}>
@@ -59,7 +59,7 @@ export default function ContactPage() {
               </svg>
             </div>
             <h3>Email</h3>
-            <p>hello@yourcompany.com</p>
+            <p>Contact@smarket.com</p>
             <p>We'll respond within 24 hours</p>
           </div>
 
@@ -82,8 +82,8 @@ export default function ContactPage() {
               </svg>
             </div>
             <h3>Office</h3>
-            <p>123 Business Avenue</p>
-            <p>San Francisco, CA 94107</p>
+            <p>FCDS Business Avenue</p>
+            <p>Alexandria, EG 21532</p>
           </div>
         </div>
 

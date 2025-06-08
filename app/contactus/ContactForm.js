@@ -52,32 +52,30 @@ export default function ContactForm() {
         </div>
       )}
 
-      <div className={styles.formRow}>
-        <div className={styles.formGroup}>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your name"
-            required
-          />
-        </div>
+      <div className={styles.formGroup}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Your name"
+          required
+        />
+      </div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Your email address"
-            required
-          />
-        </div>
+      <div className={styles.formGroup}>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Your email address"
+          required
+        />
       </div>
 
       <div className={styles.formGroup}>

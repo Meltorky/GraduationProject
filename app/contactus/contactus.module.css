@@ -11,7 +11,7 @@
   text-align: center;
   margin-bottom: 3rem;
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #0aad0aae 0%, #0aad0a 100%);
   color: white;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
@@ -73,7 +73,7 @@
 }
 
 .icon {
-  color: #6366f1;
+  color: #0aad0a;
 }
 
 .infoCard h3 {
@@ -98,7 +98,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #4f46e5;
+  color: #0aad0a;
 }
 
 .contactForm {
@@ -107,11 +107,6 @@
   gap: 1.25rem;
 }
 
-.formRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
 
 @media (max-width: 640px) {
   .formRow {
@@ -143,12 +138,12 @@
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: #0aad0a;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .submitButton {
-  background-color: #6366f1;
+  background-color: #0aad0a;
   color: white;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
@@ -160,7 +155,7 @@
 }
 
 .submitButton:hover {
-  background-color: #4f46e5;
+  background-color: #0aad0a;
 }
 
 .submitButton:disabled {
@@ -194,7 +189,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #4f46e5;
+  color: #0aad0a;
 }
 
 .map {

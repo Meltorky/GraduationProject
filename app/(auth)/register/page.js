@@ -288,7 +288,7 @@ export default function RegisterPage() {
             <p className={styles.signupLink} style={{ marginTop: "10px" }}>
               Activate your email address?{" "}
               <span style={{ color: "var(--primary)", fontWeight: "bolder" }}>
-                <Link style={{ marginLeft: "-8px" }} href="/login">
+                <Link style={{ marginLeft: "-8px" }} href="/activate">
                   Activate{" "}
                 </Link>
               </span>

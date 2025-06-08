@@ -135,7 +135,7 @@ export default function DashboardPage() {
               </select>
             </div>
           )}
-          <h1>Admin Dashboard Yala</h1>
+          <h1>Admin Dashboard 44</h1>
           <button
             className={styles.backButton}
             style={{

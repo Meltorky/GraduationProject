@@ -334,7 +334,15 @@ export const PopularProducts = () => {
 
   return (
     <div className={styles.container}>
-      <h1 style={{fontWeight:"bolder",fontSize:"2rem",color:"var(--primary)"}}>Popular Products</h1>
+      <h1
+        style={{
+          fontWeight: "bolder",
+          fontSize: "2rem",
+          color: "var(--primary)",
+        }}
+      >
+        Popular Products
+      </h1>
 
       <div className={styles.productsGrid}>
         {products.length > 0 ? (

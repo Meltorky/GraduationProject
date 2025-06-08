@@ -167,9 +167,9 @@
 }
 
 .invoiceCardHeader {
-  display: flex;
-  justify-content: space-between;
+  display: block;
   margin-bottom: 0.75rem;
+  padding-block: 2rem;;
 }
 
 .orderNumber {

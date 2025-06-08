@@ -20,28 +20,59 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* <section className={styles.storySection}>
+        <div className={styles.storyContent}>
+          <div className={styles.storyText}>
+            <h2 className={styles.sectionTitle}>Our Story</h2>
+            <p>
+              Founded in 2024, our journey began with a clear mission: to
+              revolutionize the grocery shopping experience. We saw an
+              opportunity to blend the convenience of e-commerce with
+              cutting-edge AI technology to create something truly innovative.
+            </p>
+            <p>
+              What started as a passionate team's vision quickly grew into a
+              dynamic effort to build the future of grocery retail. We're
+              dedicated to empowering both businesses and individuals, making
+              fresh, quality groceries more accessible and personal than ever
+              before.
+            </p>
+          </div>
+          <div className={styles.storyImage}>
+            <div className={styles.imagePlaceholder}>
+              <div>
+                <img src="/images/aboutusImg.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+       */}
+
       <section className={styles.storySection}>
         <div className={styles.storyContent}>
           <div className={styles.storyText}>
             <h2 className={styles.sectionTitle}>Our Story</h2>
             <p>
-              Founded in 2020, Your Company began with a simple vision: to
-              create innovative solutions that empower businesses and
-              individuals alike. What started as a small team of passionate
-              professionals has grown into a dynamic organization dedicated to
-              excellence and customer satisfaction.
+              Founded in 2024, our journey began with a clear mission: to
+              revolutionize the grocery shopping experience. We saw an
+              opportunity to blend the convenience of e-commerce with
+              cutting-edge AI technology to create something truly innovative.
             </p>
             <p>
-              Through years of dedication, innovation, and a commitment to
-              quality, we've established ourselves as leaders in our industry.
-              Our journey has been marked by continuous growth, learning, and
-              adaptation to the ever-evolving landscape of technology and
-              business.
+              What started as a passionate team's vision quickly grew into a
+              dynamic effort to build the future of grocery retail. We're
+              dedicated to empowering both businesses and individuals, making
+              fresh, quality groceries more accessible than before.
             </p>
           </div>
           <div className={styles.storyImage}>
             <div className={styles.imagePlaceholder}>
-              <span>Company History Image</span>
+              <img
+                src="/images/aboutusImg.jpg"
+                alt="About us - Our story and mission"
+                className={styles.responsiveImage}
+              />
             </div>
           </div>
         </div>
@@ -154,7 +185,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={styles.teamSection}>
+      {/* <section className={styles.teamSection}>
         <div className={styles.teamContent}>
           <h2 className={styles.sectionTitle}>Meet Our Team</h2>
           <p className={styles.teamIntro}>
@@ -200,7 +231,7 @@ export default function AboutPage() {
             <p className={styles.statLabel}>Team Members</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className={styles.ctaSection}>
         <div className={styles.ctaContent}>
@@ -210,11 +241,8 @@ export default function AboutPage() {
             opportunities to make an impact.
           </p>
           <div className={styles.ctaButtons}>
-            <a href="/contact" className={styles.primaryButton}>
+            <a href="/contactus" className={styles.primaryButton}>
               Contact Us
-            </a>
-            <a href="/careers" className={styles.secondaryButton}>
-              Explore Careers
             </a>
           </div>
         </div>

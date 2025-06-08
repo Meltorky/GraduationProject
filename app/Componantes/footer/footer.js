@@ -16,7 +16,7 @@ export default function Footer() {
               </Link>
             </div>{" "}
             <p className={styles.footerTagline}>
-              Creating exceptional experiences since 2020
+              Creating exceptional experiences since 2024
             </p>
             <div className={styles.socialLinks}>
               <a

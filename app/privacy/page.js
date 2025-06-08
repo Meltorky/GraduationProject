@@ -1,5 +1,6 @@
 // app/privacy-policy/page.js
 import styles from "./privacy.module.css";
+import Link from "next/link";
 
 export const metadata = {
   title: "Privacy Policy | Your Company",
@@ -266,14 +267,17 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className={styles.contactInfo}>
               <p>
-                <strong>Email:</strong> privacy@yourcompany.com
+                <strong>Email:</strong>                         Contact@smarket.com
+
+
               </p>
               <p>
-                <strong>Phone:</strong> +1 (555) 123-4567
+                <strong>Phone:</strong>             +20 123-4567-890
+
               </p>
               <p>
-                <strong>Address:</strong> 123 Business Avenue, San Francisco, CA
-                94107
+                <strong>Address:</strong>             FCDS Business Avenue,
+              Alexandria, EG 21532
               </p>
             </div>
           </section>
