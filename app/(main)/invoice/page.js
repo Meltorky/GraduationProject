@@ -483,9 +483,15 @@ export default function InvoicePage() {
         const data = await response.json();
         setInvoices(data);
 
+        // Sort invoices in descending order by date (assuming a 'createdAt' or 'invoiceDate' field)
+        const sortedInvoices = data.sort(
+          (a, b) => new Date(b.invoiceDate) - new Date(a.invoiceDate)
+        );
+        setInvoices(sortedInvoices);
+
         // Select the first invoice by default if available
-        if (data && data.length > 0) {
-          setSelectedInvoice(data[0]);
+        if (sortedInvoices && sortedInvoices.length > 0) {
+          setSelectedInvoice(sortedInvoices[0]);
         }
       } catch (err) {
         setError(`Failed to fetch invoices: ${err.message}`);
@@ -510,30 +516,32 @@ export default function InvoicePage() {
 
   // Function to print only the selected invoice content
   const handlePrintInvoice = () => {
-    const printableContent = document.getElementById('printableInvoiceArea');
+    const printableContent = document.getElementById("printableInvoiceArea");
     if (!printableContent || !selectedInvoice) return;
 
     // Create a new window for printing
-    const printWindow = window.open('', '_blank');
-    
+    const printWindow = window.open("", "_blank");
+
     // Get all stylesheets from the current page
     const stylesheets = Array.from(document.styleSheets)
-      .map(sheet => {
+      .map((sheet) => {
         try {
           return Array.from(sheet.cssRules)
-            .map(rule => rule.cssText)
-            .join('\n');
+            .map((rule) => rule.cssText)
+            .join("\n");
         } catch (e) {
           // Handle cross-origin stylesheets
-          return '';
+          return "";
         }
       })
-      .join('\n');
+      .join("\n");
 
     // Also get external stylesheets
-    const externalStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-      .map(link => `<link rel="stylesheet" href="${link.href}">`)
-      .join('\n');
+    const externalStyles = Array.from(
+      document.querySelectorAll('link[rel="stylesheet"]')
+    )
+      .map((link) => `<link rel="stylesheet" href="${link.href}">`)
+      .join("\n");
 
     // Write the HTML structure to the new window
     printWindow.document.write(`
@@ -584,7 +592,7 @@ export default function InvoicePage() {
     `);
 
     printWindow.document.close();
-    
+
     // Wait for styles to load, then print
     setTimeout(() => {
       printWindow.print();
@@ -784,12 +792,21 @@ export default function InvoicePage() {
 
               <div id="printableInvoiceArea">
                 {/* Print-only header for invoice */}
-                <div className="print-only" style={{ display: 'none' }}>
-                  <h1 style={{ textAlign: 'center', marginBottom: '30px', borderBottom: '2px solid #000', paddingBottom: '10px' }}>
+                <div className="print-only" style={{ display: "none" }}>
+                  <h1
+                    style={{
+                      textAlign: "center",
+                      marginBottom: "30px",
+                      borderBottom: "2px solid #000",
+                      paddingBottom: "10px",
+                    }}
+                  >
                     Invoice #{selectedInvoice.orderNumber}
                   </h1>
-                  <div style={{ marginBottom: '20px', textAlign: 'right' }}>
-                    <strong>Date: {formatDate(selectedInvoice.invoiceDate)}</strong>
+                  <div style={{ marginBottom: "20px", textAlign: "right" }}>
+                    <strong>
+                      Date: {formatDate(selectedInvoice.invoiceDate)}
+                    </strong>
                   </div>
                 </div>
 
@@ -799,7 +816,9 @@ export default function InvoicePage() {
                       <div className={styles.infoCard}>
                         <h3>Invoice Information</h3>
                         <div className={styles.infoRow}>
-                          <span className={styles.infoLabel}>Order Number:</span>
+                          <span className={styles.infoLabel}>
+                            Order Number:
+                          </span>
                           <span className={styles.infoValue}>
                             #{selectedInvoice.orderNumber}
                           </span>

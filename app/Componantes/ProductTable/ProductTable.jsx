@@ -169,6 +169,12 @@ const ProductTable = ({ products }) => {
     categoryCode: "",
     subCategoryCode: "",
   });
+  // Toggle for cascading selector visibility
+  const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+
+  const toggleSelector = () => {
+    setIsSelectorOpen((prev) => !prev);
+  };
 
   // voiuce research
   const [searchValue, setSearchValue] = useState("");
@@ -491,12 +497,28 @@ const ProductTable = ({ products }) => {
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-      <div>
+      {/* <div>
         <CascadingSelector
           categoryCode={filters.categoryCode}
           subCategoryCode={filters.subCategoryCode}
           setFilters={setFilters}
         />
+      </div> */}
+      <div className={styles.filterSection}>
+        <button className={styles.toggleButton} onClick={toggleSelector}>
+          {isSelectorOpen ? "Hide Filters" : "Show Filters"}
+        </button>
+        <div
+          className={`${styles.selectorWrapper} ${
+            isSelectorOpen ? styles.selectorOpen : ""
+          }`}
+        >
+          <CascadingSelector
+            categoryCode={filters.categoryCode}
+            subCategoryCode={filters.subCategoryCode}
+            setFilters={setFilters}
+          />
+        </div>
       </div>
       <div className={styles.productTableContainer}>
         {/* Search and sort controls */}

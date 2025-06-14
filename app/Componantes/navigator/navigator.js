@@ -66,6 +66,7 @@ export const Navigator = () => {
     }
   }, []);
 
+  const [uniqueName, setUniqueName] = useState(null);
   const [isUser, setIsUser] = useState(false);
   useEffect(() => {
     if (token) {
@@ -74,6 +75,7 @@ export const Navigator = () => {
         console.log("Decoded token:", decoded);
         if (decoded.role === "Admin" || decoded.role === "Customer") {
           setIsUser(true);
+          setUniqueName(decoded.email);
           console.log("role detected:", decoded.role);
         }
       } catch (err) {
@@ -413,12 +415,21 @@ export const Navigator = () => {
       <nav className={styles.navigation}>
         <div className={styles.topBar}>
           <div className={styles.topBarLeft}>
-            <span style={{ pointerEvents: "none", cursor: "default" }}>
-              £ EGP
-            </span>
-            <Link href="/privacy" target="_blank" rel="noopener noreferrer">
-              <span>Privacy</span>
-            </Link>
+            {uniqueName ? (
+              <h4 style={{ pointerEvents: "none", cursor: "default" }}>
+                Welcome,
+                <span style={{ color: "var(--primary)" }}>{uniqueName}</span>
+              </h4>
+            ) : (
+              <>
+                <span style={{ pointerEvents: "none", cursor: "default" }}>
+                  £ EGP
+                </span>
+                <Link href="/privacy" target="_blank" rel="noopener noreferrer">
+                  <span>Privacy</span>
+                </Link>
+              </>
+            )}
           </div>
           <div className={styles.topBarRight}>
             <Link href="/contactus" target="_blank" rel="noopener noreferrer">

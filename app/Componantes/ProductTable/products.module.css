@@ -339,3 +339,44 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* hide cascade */
+
+.filterSection {
+  margin-bottom: 20px;
+}
+
+.selectorWrapper {
+  display: block;
+}
+
+.toggleButton {
+  display: none;
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.toggleButton:hover {
+  background-color: #005bb5;
+}
+
+@media (max-width: 1450px) {
+  .selectorWrapper {
+    display: none;
+  }
+
+  .selectorWrapper.selectorOpen {
+    display:flex;
+  }
+
+  .toggleButton {
+    display: flex;
+  }
+}

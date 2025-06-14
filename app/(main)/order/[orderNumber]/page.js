@@ -252,7 +252,7 @@
 //           >
 //           <Link href="/contactus" target="_blank" rel="noopener noreferrer">
 //             <span>Contact Support</span>
-//           </Link>          
+//           </Link>
 //           </button>
 //         </div>
 //       </div>
@@ -293,30 +293,32 @@ export default function OrderDetailsPage({ params }) {
 
   // Function to print only the printableArea div
   const handlePrint = () => {
-    const printableContent = document.getElementById('printableArea');
+    const printableContent = document.getElementById("printableArea");
     if (!printableContent) return;
 
     // Create a new window for printing
-    const printWindow = window.open('', '_blank');
-    
+    const printWindow = window.open("", "_blank");
+
     // Get all stylesheets from the current page
     const stylesheets = Array.from(document.styleSheets)
-      .map(sheet => {
+      .map((sheet) => {
         try {
           return Array.from(sheet.cssRules)
-            .map(rule => rule.cssText)
-            .join('\n');
+            .map((rule) => rule.cssText)
+            .join("\n");
         } catch (e) {
           // Handle cross-origin stylesheets
-          return '';
+          return "";
         }
       })
-      .join('\n');
+      .join("\n");
 
     // Also get external stylesheets
-    const externalStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-      .map(link => `<link rel="stylesheet" href="${link.href}">`)
-      .join('\n');
+    const externalStyles = Array.from(
+      document.querySelectorAll('link[rel="stylesheet"]')
+    )
+      .map((link) => `<link rel="stylesheet" href="${link.href}">`)
+      .join("\n");
 
     // Write the HTML structure to the new window
     printWindow.document.write(`
@@ -361,7 +363,7 @@ export default function OrderDetailsPage({ params }) {
     `);
 
     printWindow.document.close();
-    
+
     // Wait for styles to load, then print
     setTimeout(() => {
       printWindow.print();
@@ -447,7 +449,7 @@ export default function OrderDetailsPage({ params }) {
         </button>
         <h1 className={styles.title}>Order Details</h1>
       </div>
-      
+
       <div id="printableArea">
         <div className={styles.orderContainer}>
           <div className={styles.orderHeader}>
@@ -457,6 +459,20 @@ export default function OrderDetailsPage({ params }) {
             </div>
             <div className={styles.orderHeaderRight}>
               <div className={styles.statusBadges}>
+                {/* <span
+                  className={`${styles.badge} ${
+                    styles[order.orderStatus.toLowerCase()]
+                  }`}
+                >
+                  {order.orderStatus}
+                </span>
+                <span
+                  className={`${styles.badge} ${
+                    styles[order.paymentStatus.toLowerCase()]
+                  }`}
+                >
+                  {order.paymentStatus}
+                </span> */}
                 <span
                   className={`${styles.badge} ${
                     styles[order.orderStatus.toLowerCase()]
@@ -475,6 +491,18 @@ export default function OrderDetailsPage({ params }) {
               <div className={styles.totalAmount}>
                 <p>Total Amount</p>
                 <h3>EGP {order.totalAmount.toFixed(2)}</h3>
+                {order.orderStatus.toLowerCase() === "pending" && (
+                  <h4
+                    style={{
+                      color: "red",
+                      fontSize: "1rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    Payment Processing Failed. Please Contact Our Support Team
+                    To Complete Your Payment
+                  </h4>
+                )}
               </div>
             </div>
           </div>
@@ -507,7 +535,9 @@ export default function OrderDetailsPage({ params }) {
                           />
                         )}
                       </div>
-                      <div className={styles.productName}>{item.productName}</div>
+                      <div className={styles.productName}>
+                        {item.productName}
+                      </div>
                     </div>
                   </div>
                   <div className={styles.quantityCol}>{item.quantity}</div>
@@ -532,7 +562,8 @@ export default function OrderDetailsPage({ params }) {
 
           <div className={styles.section}>
             <h3 className={styles.sectionTitle}>
-              <span className={styles.sectionIcon}>🚚</span> Shipping Information
+              <span className={styles.sectionIcon}>🚚</span> Shipping
+              Information
             </h3>
             {order.shipping.map((shipping, index) => (
               <div key={index} className={styles.shippingCard}>
@@ -589,12 +620,10 @@ export default function OrderDetailsPage({ params }) {
         >
           Print Order
         </button>
-        <button
-          className={`${styles.actionButton} ${styles.contactButton}`}
-        >
+        <button className={`${styles.actionButton} ${styles.contactButton}`}>
           <Link href="/contactus" target="_blank" rel="noopener noreferrer">
             <span>Contact Support</span>
-          </Link>          
+          </Link>
         </button>
       </div>
     </div>
