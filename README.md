@@ -1,3 +1,7 @@
+# 🛒 Smarket - AI-Powered E-commerce Mobile Application
+---
+## 🎓 Computer Science Graduation Project
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -36,3 +40,16 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 "# GraduationProject" 
 "# GraduationProject" 
+---
+
+## 📸 Screenshots
+
+![Home](screenshots/smarket.png)
+![Home](screenshots/smarket2.png)
+![Home](screenshots/Screen372.png)
+![Home](screenshots/Screen373.png)
+![Home](screenshots/Screen374.png)
+![Home](screenshots/Screen375.png)
+![Home](screenshots/Screen376.png)
+![Home](screenshots/Screen377.png)
+
